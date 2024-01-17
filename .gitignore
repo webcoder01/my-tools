@@ -1,0 +1,17 @@
+# Symfony
+/.env.*.local
+/.env.local
+/.env.local.php
+/assets/vendor
+/config/secrets/prod/prod.decrypt.private.php
+/public/assets/
+/public/bundles/
+/var/
+/vendor/
+
+# IDE
+/.idea
+
+# Phpunit
+.phpunit.result.cache
+/phpunit.xml

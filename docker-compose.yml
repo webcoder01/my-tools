@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  database:
+    image: mariadb:11.2
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_DATABASE: app
+      MARIADB_ROOT_PASSWORD: root
+    volumes:
+      - my_tools_db_data:/var/lib/mysql:rw
+
+volumes:
+  my_tools_db_data:
