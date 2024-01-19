@@ -1,13 +1,13 @@
 core_home:
     resource:
-        path: ../src/Core/Home/Application/Controller/
-        namespace: App\Core\Home\Application\Controller
+        path: ../src/Core/Home/Infrastructure/Controller/
+        namespace: App\Core\Home\Infrastructure\Controller
     type: attribute
 
 core_security:
     resource:
-        path: ../src/Core/Security/Application/Controller/
-        namespace: App\Core\Security\Application\Controller
+        path: ../src/Core/Security/Infrastructure/Controller/
+        namespace: App\Core\Security\Infrastructure\Controller
     type: attribute
 
 controllers:
