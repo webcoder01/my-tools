@@ -1,4 +1,5 @@
 init:
+	composer install
 	symfony server:ca:install
 
 start:
