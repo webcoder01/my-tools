@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .alert {
+    @apply text-sm font-medium py-3 px-2 rounded-md;
+  }
+
+  .alert-danger {
+    @apply bg-red-100 text-red-400;
+  }
+
+  .btn {
+    @apply text-lg px-5 py-2 rounded-md;
+  }
+
+  .btn-primary {
+    @apply bg-teal-600 hover:bg-teal-700 focus:bg-teal-800 text-white;
+  }
+
+  .form-control {
+    @apply py-1.5 px-2 rounded-md bg-slate-100 border border-solid border-slate-300 text-slate-500;
+  }
+}
