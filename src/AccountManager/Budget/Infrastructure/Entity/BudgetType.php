@@ -2,28 +2,19 @@
 
 namespace App\AccountManager\Budget\Infrastructure\Entity;
 
+use App\Shared\Infrastructure\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'budget_type')]
-final class BudgetType
+final class BudgetType extends AbstractEntity
 {
-  #[ORM\Id]
-  #[ORM\Column(type: 'string',  length: 36)]
-  private string $id;
-
   #[ORM\Column(type: 'string', length: 80)]
   private ?string $name = null;
 
   #[ORM\ManyToOne(targetEntity: BudgetCategory::class)]
   #[ORM\JoinColumn(name: 'category_id', referencedColumnName: 'id')]
   private ?BudgetCategory $category = null;
-
-  public function __construct()
-  {
-    $this->id = Uuid::v4()->toRfc4122();
-  }
 
   public function getId(): string
   {

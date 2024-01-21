@@ -2,6 +2,7 @@
 
 namespace App\Core\Security\Infrastructure\Entity;
 
+use App\Shared\Infrastructure\AbstractEntity;
 use App\Shared\Infrastructure\EntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -9,13 +10,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity]
 #[ORM\Table(name: '`user`')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface, EntityInterface
+final class User extends AbstractEntity implements UserInterface, PasswordAuthenticatedUserInterface, EntityInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
     #[ORM\Column(length: 50, unique: true)]
     private ?string $username = null;
 
