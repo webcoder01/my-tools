@@ -10,5 +10,14 @@ start:
 build-tailwind:
 	php bin/console tailwind:build --watch
 
+add-migrations:
+	php bin/console doctrine:migrations:diff
+
+migrate:
+	php bin/console doctrine:migrations:migrate
+
+load-fixtures:
+	php bin/console doctrine:fixtures:load
+
 stop:
 	docker-compose down
