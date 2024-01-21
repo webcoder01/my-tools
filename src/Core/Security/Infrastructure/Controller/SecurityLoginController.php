@@ -18,11 +18,10 @@ class SecurityLoginController extends AbstractController
       return $this->redirectToRoute('app_core_home_index');
     }
 
-    $lastError = $authenticationUtils->getLastAuthenticationError();
-    $lastUsername = $authenticationUtils->getLastUsername();
     $user = new User();
-    $user->setUsername($lastUsername);
+    $user->setUsername($authenticationUtils->getLastUsername());
     $form = $loginType->createForm($user);
+    $lastError = $authenticationUtils->getLastAuthenticationError();
 
     return $this->render('core/security/login.html.twig', [
       'form' => $form->createView(),

@@ -18,43 +18,46 @@ use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 {
-    use TargetPathTrait;
+  use TargetPathTrait;
 
-    public const LOGIN_ROUTE = 'app_core_security_login';
+  public const LOGIN_ROUTE = 'app_core_security_login';
 
-    private UrlGeneratorInterface $urlGenerator;
+  private UrlGeneratorInterface $urlGenerator;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator)
-    {
-        $this->urlGenerator = $urlGenerator;
+  public function __construct(UrlGeneratorInterface $urlGenerator)
+  {
+    $this->urlGenerator = $urlGenerator;
+  }
+
+  public function authenticate(Request $request): Passport
+  {
+    $requestParameters = $request->request->all()['login'];
+    $username = $requestParameters['username'] ?? '';
+    $password = $requestParameters['password'] ?? '';
+    $token = $requestParameters['_csrf_token'] ?? null;
+    $request->getSession()->set(SecurityRequestAttributes::LAST_USERNAME, $username);
+
+    return new Passport(
+      new UserBadge($username),
+      new PasswordCredentials($password),
+      [
+        new CsrfTokenBadge('authenticate', $token),
+        new RememberMeBadge(),
+      ]
+    );
+  }
+
+  public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
+  {
+    if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+      return new RedirectResponse($targetPath);
     }
 
-    public function authenticate(Request $request): Passport
-    {
-        $username = $request->request->get('username', '');
-        $request->getSession()->set(SecurityRequestAttributes::LAST_USERNAME, $username);
+    return new RedirectResponse($this->urlGenerator->generate('app_core_home_index'));
+  }
 
-        return new Passport(
-            new UserBadge($username),
-            new PasswordCredentials($request->request->get('password', '')),
-            [
-                new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),
-                new RememberMeBadge(),
-            ]
-        );
-    }
-
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
-    {
-        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-            return new RedirectResponse($targetPath);
-        }
-
-        return new RedirectResponse($this->urlGenerator->generate('app_core_home_index'));
-    }
-
-    protected function getLoginUrl(Request $request): string
-    {
-        return $this->urlGenerator->generate(self::LOGIN_ROUTE);
-    }
+  protected function getLoginUrl(Request $request): string
+  {
+    return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+  }
 }
