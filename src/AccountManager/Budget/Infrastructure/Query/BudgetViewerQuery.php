@@ -26,11 +26,9 @@ final class BudgetViewerQuery extends AbstractQuery implements BudgetViewerQuery
         SUM(budget.available_amount) AS available_amount
       FROM budget_category AS category
       INNER JOIN user ON user.id = category.user_id
-      INNER JOIN budget_type AS type ON type.category_id = category.id
-      INNER JOIN budget ON budget.type_id = type.id
+      LEFT JOIN budget_type AS type ON type.category_id = category.id
+      LEFT JOIN budget ON budget.type_id = type.id AND budget.month = :month AND budget.year = :year
       WHERE user.id = :userId
-      AND budget.month = :month
-      AND budget.year = :year
       GROUP BY category.id, category.name
       ORDER BY category.name ASC
     ");
@@ -62,11 +60,9 @@ final class BudgetViewerQuery extends AbstractQuery implements BudgetViewerQuery
         budget.available_amount
       FROM budget_category AS category
       INNER JOIN user ON user.id = category.user_id
-      INNER JOIN budget_type AS type ON type.category_id = category.id
-      INNER JOIN budget ON budget.type_id = type.id
+      LEFT JOIN budget_type AS type ON type.category_id = category.id
+      LEFT JOIN budget ON budget.type_id = type.id AND budget.month = :month AND budget.year = :year
       WHERE user.id = :userId
-      AND budget.month = :month
-      AND budget.year = :year
       ORDER BY category.id ASC, type.name ASC
     ");
 
