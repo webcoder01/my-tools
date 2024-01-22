@@ -30,7 +30,7 @@ final class Budget extends AbstractEntity
     return $this->id;
   }
 
-  public function setAssignedAmount(float $assignedAmount): void
+  public function setAssignedAmount(string $assignedAmount): void
   {
     $this->assignedAmount = $assignedAmount;
   }
@@ -40,7 +40,7 @@ final class Budget extends AbstractEntity
     return $this->assignedAmount;
   }
 
-  public function setAvailableAmount(float $availableAmount): void
+  public function setAvailableAmount(string $availableAmount): void
   {
     $this->availableAmount = $availableAmount;
   }
