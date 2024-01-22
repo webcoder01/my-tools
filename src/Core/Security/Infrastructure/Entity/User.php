@@ -21,7 +21,7 @@ final class User extends AbstractEntity implements UserInterface, PasswordAuthen
     #[ORM\Column]
     private ?string $password = null;
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
