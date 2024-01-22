@@ -19,5 +19,8 @@ migrate:
 load-fixtures:
 	php bin/console doctrine:fixtures:load
 
+tests:
+	php bin/phpunit tests
+
 stop:
 	docker-compose down
