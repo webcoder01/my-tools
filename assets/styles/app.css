@@ -19,6 +19,10 @@
     @apply bg-teal-600 hover:bg-teal-700 focus:bg-teal-800 text-white;
   }
 
+  .root-container {
+    @apply xl:max-w-screen-lg m-auto;
+  }
+
   .form-control {
     @apply py-1.5 px-2 rounded-md bg-slate-100 border border-solid border-slate-300 text-slate-500;
   }
