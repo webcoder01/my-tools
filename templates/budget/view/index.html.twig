@@ -13,5 +13,24 @@
 {% endblock %}
 
 {% block body %}
-
+  <ul class="flex justify-around items-center bg-teal-50 text-teal-600 px-3 py-5">
+    <li>
+      <a href="{{ path('app_account_manager_budgets_on_specific_date', {month: navigation_dates['previous']|date('n'), year: navigation_dates['previous']|date('Y')}) }}">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 fill-teal-600">
+          <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
+        </svg>
+      </a>
+    </li>
+    <li class="text-lg">
+      {% set currentMonth = navigation_dates['current']|date('F') %}
+      {{ ('months.' ~ currentMonth)|trans }} {{ navigation_dates['current']|date('Y') }}
+    </li>
+    <li>
+      <a href="{{ path('app_account_manager_budgets_on_specific_date', {month: navigation_dates['next']|date('n'), year: navigation_dates['next']|date('Y')}) }}">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 fill-teal-600">
+          <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
+        </svg>
+      </a>
+    </li>
+  </ul>
 {% endblock %}

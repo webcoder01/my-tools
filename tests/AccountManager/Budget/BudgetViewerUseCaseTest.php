@@ -4,6 +4,7 @@ namespace App\Tests\AccountManager\Budget;
 
 use App\AccountManager\Budget\Application\UseCase\BudgetViewerUseCase;
 use App\AccountManager\Budget\Infrastructure\Query\BudgetViewerQueryInterface;
+use DateTime;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -119,5 +120,17 @@ class BudgetViewerUseCaseTest extends TestCase
     $this->assertSame('budget 2', $lastBudget['name']);
     $this->assertSame('50.00', $lastBudget['assigned_amount']);
     $this->assertSame('50.00', $lastBudget['available_amount']);
+  }
+
+  public function testReturnsNavigationDatesCorrectly(): void
+  {
+    $now = new DateTime();
+    $navigationDates = $this->budgetViewerUseCase->getNavigationDates($now);
+
+    $previousDateInterval = $now->diff($navigationDates['previous']);
+    $nextDateInterval = $now->diff($navigationDates['next']);
+
+    $this->assertSame('-1', $previousDateInterval->format('%r%m'));
+    $this->assertSame('1', $nextDateInterval->format('%r%m'));
   }
 }

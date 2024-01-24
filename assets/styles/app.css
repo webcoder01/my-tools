@@ -11,6 +11,10 @@
     @apply bg-red-100 text-red-400;
   }
 
+  .bg-primary {
+    @apply bg-teal-600;
+  }
+
   .btn {
     @apply text-lg px-5 py-2 rounded-md;
   }

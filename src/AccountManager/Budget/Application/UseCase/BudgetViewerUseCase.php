@@ -3,6 +3,8 @@
 namespace App\AccountManager\Budget\Application\UseCase;
 
 use App\AccountManager\Budget\Infrastructure\Query\BudgetViewerQueryInterface;
+use DateInterval;
+use DateTime;
 
 final class BudgetViewerUseCase implements BudgetViewerInterface
 {
@@ -64,5 +66,23 @@ final class BudgetViewerUseCase implements BudgetViewerInterface
     }
 
     return $budgets;
+  }
+
+  /**
+   * @return array{
+   *   previous: DateTime,
+   *   current: DateTime,
+   *   next: DateTime,
+   * }
+   */
+  public function getNavigationDates(DateTime $currentDate): array
+  {
+    $oneMonthInterval = DateInterval::createFromDateString('1 month');
+
+    return [
+      'previous' => (clone $currentDate)->sub($oneMonthInterval),
+      'current' => $currentDate,
+      'next' => (clone $currentDate)->add($oneMonthInterval),
+    ];
   }
 }

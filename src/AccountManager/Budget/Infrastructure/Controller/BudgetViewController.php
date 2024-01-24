@@ -20,6 +20,7 @@ final class BudgetViewController extends AbstractController
 
     return $this->render('budget/view/index.html.twig', [
       'budgets_grouped_by_categories' => $budgetViewer->getViewOfMonth($userId, $currentMonth, $currentYear),
+      'navigation_dates' => $budgetViewer->getNavigationDates($currentDate),
     ]);
   }
 }

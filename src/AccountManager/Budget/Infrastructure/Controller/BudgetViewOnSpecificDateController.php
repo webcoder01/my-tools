@@ -3,6 +3,7 @@
 namespace App\AccountManager\Budget\Infrastructure\Controller;
 
 use App\AccountManager\Budget\Application\UseCase\BudgetViewerInterface;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -13,9 +14,11 @@ final class BudgetViewOnSpecificDateController extends AbstractController
   public function __invoke(BudgetViewerInterface $budgetViewer, int $month, int $year): Response
   {
     $userId = $this->getUser()->getId();
+    $date = DateTime::createFromFormat('d-m-Y', sprintf('1-%d-%d', $month, $year));
 
     return $this->render('budget/view/index.html.twig', [
       'budgets_grouped_by_categories' => $budgetViewer->getViewOfMonth($userId, $month, $year),
+      'navigation_dates' => $budgetViewer->getNavigationDates($date),
     ]);
   }
 }
