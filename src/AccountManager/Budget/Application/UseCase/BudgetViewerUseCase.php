@@ -22,12 +22,12 @@ final class BudgetViewerUseCase implements BudgetViewerInterface
    *   array{
    *     id: string,
    *     name: string,
-   *     assigned_amount: string,
-   *     available_amount: string,
+   *     assigned_amount: (string | null),
+   *     available_amount: (string | null),
    *     budgets: array{
    *       name: string,
-   *       assigned_amount: string,
-   *       available_amount: string,
+   *       assigned_amount: (string | null),
+   *       available_amount: (string | null),
    *       comment: string,
    *     }
    *   }
