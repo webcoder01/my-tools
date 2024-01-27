@@ -3,6 +3,24 @@
 @tailwind utilities;
 
 @layer components {
+  /* Account manager */
+  .feat-am-budget-amount {
+    @apply flex-1;
+  }
+
+  .feat-am-budget-name {
+    @apply w-5/12 md:w-6/12;
+  }
+
+  .feat-am-budget-row {
+    @apply flex gap-1 justify-between items-end;
+  }
+
+  .feat-am-category-amount-view {
+    @apply flex flex-col gap-0.5 items-start;
+  }
+
+  /* Shared */
   .alert {
     @apply text-sm font-medium py-3 px-2 rounded-md;
   }
@@ -23,11 +41,11 @@
     @apply bg-teal-600 hover:bg-teal-700 focus:bg-teal-800 text-white;
   }
 
-  .root-container {
-    @apply xl:max-w-screen-lg m-auto;
-  }
-
   .form-control {
     @apply py-1.5 px-2 rounded-md bg-slate-100 border border-solid border-slate-300 text-slate-500;
+  }
+
+  .root-container {
+    @apply xl:max-w-screen-lg m-auto;
   }
 }

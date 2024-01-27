@@ -33,4 +33,54 @@
       </a>
     </li>
   </ul>
+  
+  {% macro format_amount(amount) %}
+    {{ amount|default('0')|number_format(2, ',', ' ') }} &euro;
+  {% endmacro %}
+  
+  {# Only concerns available amount of budget #}
+  {% macro hightlight_amount(amount) %}
+    {# By default, amount is displayed with the default gray color because it is considered null #}
+    {% set class = '' %}
+    
+    {# If amount is negative #}
+    {% if amount|slice(0, 1) == '-' %}
+      {% set class = 'text-red-500' %}
+    {% elseif amount is not null %}
+      {% set class = 'text-green-500' %}
+    {% endif %}
+    
+    {# Returns class #}
+    {{ class }}
+  {% endmacro %}
+  
+  <main class="mt-5">
+    {% for category in budgets_grouped_by_categories %}
+      <details class="mb-1">
+        <summary class="bg-gray-200 py-4 px-3 font-bold text-gray-500 feat-am-budget-row">
+          <span class="feat-am-budget-name">{{ category.name }}</span>
+          <span class="feat-am-category-amount-view feat-am-budget-amount">
+            <span class="text-xs font-normal">Assigné</span>
+            {{ _self.format_amount(category.assigned_amount) }}
+          </span>
+          <span class="feat-am-category-amount-view feat-am-budget-amount">
+            <span class="text-xs font-normal">Disponible</span>
+            {{ _self.format_amount(category.available_amount) }}
+          </span>
+        </summary>
+        
+        {% for budget in category.budgets %}
+          <div class="bg-white p-3 feat-am-budget-row">
+            <span class="feat-am-budget-name">{{ budget.name }}</span>
+            <span class="feat-am-budget-amount">
+              {{ _self.format_amount(budget.assigned_amount) }}
+            </span>
+            <span class="feat-am-budget-amount {{ _self.hightlight_amount(budget.available_amount) }}">
+              {{ _self.format_amount(budget.available_amount) }}
+            </span>
+          </div>
+        {% endfor %}
+      </details>
+    {% endfor %}
+  </main>
 {% endblock %}
