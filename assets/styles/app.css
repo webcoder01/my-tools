@@ -41,6 +41,23 @@
     @apply bg-teal-600 hover:bg-teal-700 focus:bg-teal-800 text-white;
   }
 
+  .btn-secondary {
+    @apply
+      bg-white
+      shadow-inner
+      shadow-[inset_0_0_0_2px_#0d9488]
+      text-teal-600
+      hover:text-teal-700
+      hover:shadow-[inset_0_0_0_2px_#0f766e]
+      focus:text-teal-800
+      focus:shadow-[inset_0_0_0_2px_#115e59]
+    ;
+  }
+
+  .btn-small {
+    @apply text-sm py-1;
+  }
+
   .form-control {
     @apply py-1.5 px-2 rounded-md bg-slate-100 border border-solid border-slate-300 text-slate-500;
   }

@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block importmap %}
+  {{ importmap('account_manager/budget_view') }}
+{% endblock %}
+
 {% block app_navigation_tabs %}
   <li>
     <a href="#">Comptes</a>
@@ -70,14 +74,19 @@
         </summary>
         
         {% for budget in category.budgets %}
-          <div class="bg-white p-3 feat-am-budget-row">
-            <span class="feat-am-budget-name">{{ budget.name }}</span>
-            <span class="feat-am-budget-amount">
+          <div data-budget="{{ budget.id }}" class="budget-widget bg-white p-3">
+            <div class="feat-am-budget-row">
+              <span class="feat-am-budget-name">{{ budget.name }}</span>
+              <span class="feat-am-budget-amount">
               {{ _self.format_amount(budget.assigned_amount) }}
             </span>
-            <span class="feat-am-budget-amount {{ _self.hightlight_amount(budget.available_amount) }}">
+              <span class="feat-am-budget-amount {{ _self.hightlight_amount(budget.available_amount) }}">
               {{ _self.format_amount(budget.available_amount) }}
             </span>
+            </div>
+            <div class="budget-edition mt-2 gap-5 hidden">
+              <button class="btn btn-primary btn-small" type="button">Editer budget</button>
+            </div>
           </div>
         {% endfor %}
       </details>
