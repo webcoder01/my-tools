@@ -44,6 +44,7 @@ final class BudgetViewerQuery extends AbstractQuery implements BudgetViewerQuery
    * @return array{
    *   array{
    *     category_id: string,
+   *     id: string,
    *     name: string,
    *     assigned_amount: string,
    *     available_amount: string,
@@ -55,6 +56,7 @@ final class BudgetViewerQuery extends AbstractQuery implements BudgetViewerQuery
     $statement = $this->entityManager->getConnection()->prepare("
       SELECT
         category.id AS category_id,
+        type.id AS id,
         type.name AS name,
         budget.assigned_amount,
         budget.available_amount

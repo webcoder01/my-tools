@@ -25,6 +25,7 @@ final class BudgetViewerUseCase implements BudgetViewerInterface
    *     assigned_amount: (string | null),
    *     available_amount: (string | null),
    *     budgets: array{
+   *       id: string,
    *       name: string,
    *       assigned_amount: (string | null),
    *       available_amount: (string | null),
@@ -59,6 +60,7 @@ final class BudgetViewerUseCase implements BudgetViewerInterface
 
     foreach ($budgetsOfCategory as $budgetOfCategory) {
       $budgets[] = [
+        'id' => $budgetOfCategory['id'],
         'name' => $budgetOfCategory['name'],
         'assigned_amount' => $budgetOfCategory['assigned_amount'],
         'available_amount' => $budgetOfCategory['available_amount'],
