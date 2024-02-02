@@ -14,7 +14,7 @@ class BudgetTypeCreationControllerTest extends WebTestCase
   public function testReturnsUnauthorizedAccessIfUserIsNotLoggedIn(): void
   {
     $client = static::createClient();
-    $client->request('POST', '/gestion-de-compte/budget/type');
+    $client->request('POST', '/gestion-de-compte/budget/type/create');
 
     $this->assertResponseStatusCodeSame(401);
   }
@@ -26,7 +26,7 @@ class BudgetTypeCreationControllerTest extends WebTestCase
   {
     $client = static::createClient();
     $this->loginUser($client, static::getContainer());
-    $client->request($method, '/gestion-de-compte/budget/type', [], [], [], '[]');
+    $client->request($method, '/gestion-de-compte/budget/type/create', [], [], [], '[]');
 
     $this->assertResponseStatusCodeSame($statusCode);
   }
@@ -44,7 +44,7 @@ class BudgetTypeCreationControllerTest extends WebTestCase
   {
     $client = static::createClient();
     $this->loginUser($client, static::getContainer());
-    $client->request('POST', '/gestion-de-compte/budget/type', [], [], [], '[]');
+    $client->request('POST', '/gestion-de-compte/budget/type/create', [], [], [], '[]');
 
     $this->assertResponseStatusCodeSame(400);
   }
@@ -55,7 +55,7 @@ class BudgetTypeCreationControllerTest extends WebTestCase
     $this->loginUser($client, static::getContainer());
 
     $content = json_encode(['category_id' => Uuid::v4()->toRfc4122(), 'name' => 'test']);
-    $client->request('POST', '/gestion-de-compte/budget/type', [], [], [], $content);
+    $client->request('POST', '/gestion-de-compte/budget/type/create', [], [], [], $content);
 
     $this->assertResponseStatusCodeSame(403);
   }
@@ -74,7 +74,7 @@ class BudgetTypeCreationControllerTest extends WebTestCase
     ;
 
     $content = json_encode(['category_id' => $budgetCategoryId, 'name' => 'test']);
-    $client->request('POST', '/gestion-de-compte/budget/type', [], [], [], $content);
+    $client->request('POST', '/gestion-de-compte/budget/type/create', [], [], [], $content);
 
     $this->assertResponseStatusCodeSame(201);
   }
