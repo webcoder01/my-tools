@@ -6,6 +6,14 @@ account_manager:
   prefix: '/gestion-de-compte'
   name_prefix: 'app_account_manager_'
 
+account_manager_provider:
+  resource:
+    path: ../src/AccountManager/Budget/Provider/Controller/
+    namespace: App\AccountManager\Budget\Provider\Controller
+  type: attribute
+  prefix: '/gestion-de-compte'
+  name_prefix: 'app_account_manager_'
+
 core_home:
   resource:
     path: ../src/Core/Home/Infrastructure/Controller/

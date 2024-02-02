@@ -95,6 +95,7 @@
         }
     },
     "require-dev": {
+        "dg/bypass-finals": "^1.5",
         "doctrine/doctrine-fixtures-bundle": "*",
         "phpspec/prophecy-phpunit": "*",
         "phpunit/phpunit": "^9.5",

@@ -25,6 +25,7 @@ security:
                 always_remember_me: true
     access_control:
         - { path: ^/connexion, roles: PUBLIC_ACCESS }
+        - { path: ^/gestion-de-compte/budget, roles: PUBLIC_ACCESS }
         - { path: ^/, roles: ROLE_USER }
 
 when@test:
