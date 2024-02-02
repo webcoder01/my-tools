@@ -2,6 +2,7 @@
 
 namespace App\Tests\AccountManager\Budget\Provider\Controller;
 
+use App\AccountManager\Budget\Infrastructure\Entity\BudgetCategory;
 use App\Tests\AuthenticationTestTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Uid\Uuid;
@@ -57,5 +58,24 @@ class BudgetTypeCreationControllerTest extends WebTestCase
     $client->request('POST', '/gestion-de-compte/budget/type', [], [], [], $content);
 
     $this->assertResponseStatusCodeSame(403);
+  }
+
+  public function testReturns201ResponseStatusCodeWhenCreationIsASuccess(): void
+  {
+    $client = static::createClient();
+    $container = static::getContainer();
+    $this->loginUser($client, $container);
+
+    $entityManager = $container->get('doctrine')->getManager();
+    $budgetCategoryId = $entityManager
+      ->getRepository(BudgetCategory::class)
+      ->findOneBy(['user' => $this->user])
+      ->getId()
+    ;
+
+    $content = json_encode(['category_id' => $budgetCategoryId, 'name' => 'test']);
+    $client->request('POST', '/gestion-de-compte/budget/type', [], [], [], $content);
+
+    $this->assertResponseStatusCodeSame(201);
   }
 }
