@@ -2,11 +2,12 @@
 
 namespace App\AccountManager\Budget\Application\UseCase;
 
-use App\AccountManager\Budget\Infrastructure\Query\BudgetViewerQueryInterface;
+use App\AccountManager\Budget\Port\Input\BudgetViewerUseCaseInterface;
+use App\AccountManager\Budget\Port\Output\BudgetViewerQueryInterface;
 use DateInterval;
 use DateTime;
 
-final class BudgetViewerUseCase implements BudgetViewerInterface
+final class BudgetViewerUseCase implements BudgetViewerUseCaseInterface
 {
   private BudgetViewerQueryInterface $budgetViewerQuery;
 

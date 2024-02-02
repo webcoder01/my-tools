@@ -1,6 +1,6 @@
 <?php
 
-namespace App\AccountManager\Budget\Infrastructure\Query;
+namespace App\AccountManager\Budget\Port\Output;
 
 interface BudgetViewerQueryInterface
 {

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\AccountManager\Budget\Infrastructure\Query;
+namespace App\AccountManager\Budget\Provider\Query;
 
+use App\AccountManager\Budget\Port\Output\BudgetViewerQueryInterface;
 use App\Shared\Infrastructure\AbstractQuery;
 
 final class BudgetViewerQuery extends AbstractQuery implements BudgetViewerQueryInterface

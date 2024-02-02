@@ -2,7 +2,7 @@
 
 namespace App\AccountManager\Budget\Provider\Controller;
 
-use App\AccountManager\Budget\Application\UseCase\BudgetViewerInterface;
+use App\AccountManager\Budget\Port\Input\BudgetViewerUseCaseInterface;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 final class BudgetViewController extends AbstractController
 {
   #[Route(path: '/budgets', name: 'budgets')]
-  public function __invoke(BudgetViewerInterface $budgetViewer): Response
+  public function __invoke(BudgetViewerUseCaseInterface $budgetViewerUseCase): Response
   {
     $userId = $this->getUser()->getId();
     $currentDate = new DateTime();
@@ -19,8 +19,8 @@ final class BudgetViewController extends AbstractController
     $currentYear = (int) $currentDate->format('Y');
 
     return $this->render('budget/view/index.html.twig', [
-      'budgets_grouped_by_categories' => $budgetViewer->getViewOfMonth($userId, $currentMonth, $currentYear),
-      'navigation_dates' => $budgetViewer->getNavigationDates($currentDate),
+      'budgets_grouped_by_categories' => $budgetViewerUseCase->getViewOfMonth($userId, $currentMonth, $currentYear),
+      'navigation_dates' => $budgetViewerUseCase->getNavigationDates($currentDate),
     ]);
   }
 }

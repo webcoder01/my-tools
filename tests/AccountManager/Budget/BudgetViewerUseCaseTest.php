@@ -3,7 +3,7 @@
 namespace App\Tests\AccountManager\Budget;
 
 use App\AccountManager\Budget\Application\UseCase\BudgetViewerUseCase;
-use App\AccountManager\Budget\Infrastructure\Query\BudgetViewerQueryInterface;
+use App\AccountManager\Budget\Port\Output\BudgetViewerQueryInterface;
 use DateTime;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;

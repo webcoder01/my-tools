@@ -1,10 +1,10 @@
 <?php
 
-namespace App\AccountManager\Budget\Application\UseCase;
+namespace App\AccountManager\Budget\Port\Input;
 
 use DateTime;
 
-interface BudgetViewerInterface
+interface BudgetViewerUseCaseInterface
 {
   public function getViewOfMonth(string $userId, int $month, int $year): array;
 

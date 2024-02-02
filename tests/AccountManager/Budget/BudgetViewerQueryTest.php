@@ -2,7 +2,7 @@
 
 namespace App\Tests\AccountManager\Budget;
 
-use App\AccountManager\Budget\Infrastructure\Query\BudgetViewerQuery;
+use App\AccountManager\Budget\Provider\Query\BudgetViewerQuery;
 use App\Core\Security\Infrastructure\Entity\User;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
