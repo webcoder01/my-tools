@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\AccountManager\Budget;
+namespace App\Tests\AccountManager\Budget\Provider\Controller;
 
 use App\Core\Security\Infrastructure\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;

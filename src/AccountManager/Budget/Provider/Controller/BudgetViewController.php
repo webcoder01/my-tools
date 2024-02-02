@@ -1,6 +1,6 @@
 <?php
 
-namespace App\AccountManager\Budget\Infrastructure\Controller;
+namespace App\AccountManager\Budget\Provider\Controller;
 
 use App\AccountManager\Budget\Application\UseCase\BudgetViewerInterface;
 use DateTime;
