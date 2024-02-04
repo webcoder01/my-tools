@@ -6,6 +6,7 @@ use App\AccountManager\Budget\Infrastructure\Entity\BudgetCategory;
 use App\AccountManager\Budget\Infrastructure\Entity\BudgetType;
 use App\AccountManager\Budget\Port\Output\BudgetTypeCreationServiceInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityNotFoundException;
 
 final class BudgetTypeCreationService implements BudgetTypeCreationServiceInterface
 {
@@ -16,9 +17,15 @@ final class BudgetTypeCreationService implements BudgetTypeCreationServiceInterf
     $this->entityManager = $entityManager;
   }
 
+  /**
+   * @throws EntityNotFoundException
+   */
   public function persistBudgetType(string $categoryId, string $name): string
   {
     $budgetCategory = $this->entityManager->getRepository(BudgetCategory::class)->find($categoryId);
+    if ($budgetCategory === null) {
+      throw new EntityNotFoundException();
+    }
 
     $budgetType = new BudgetType();
     $budgetType->setName($name);

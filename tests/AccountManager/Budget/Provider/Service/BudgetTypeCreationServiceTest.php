@@ -7,6 +7,7 @@ use App\AccountManager\Budget\Infrastructure\Entity\BudgetType;
 use App\AccountManager\Budget\Provider\Service\BudgetTypeCreationService;
 use DG\BypassFinals;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Uid\Uuid;
 
@@ -25,10 +26,21 @@ class BudgetTypeCreationServiceTest extends KernelTestCase
     $this->budgetCategoryIdToUse = $budgetCategory->getId();
   }
 
+  public function testThrowsEntityNotFoundExceptionIfCategoryIsNotFoundById(): void
+  {
+    $this->expectException(EntityNotFoundException::class);
+
+    $budgetTypeCreationService = new BudgetTypeCreationService($this->entityManager);
+    $budgetTypeCreationService->persistBudgetType(
+      Uuid::v4()->toRfc4122(),
+      'type name'
+    );
+  }
+
   public function testBudgetTypeIsPersistedInDatabase(): void
   {
-    $budgetTypeAdditionService = new BudgetTypeCreationService($this->entityManager);
-    $budgetTypeAdditionService->persistBudgetType($this->budgetCategoryIdToUse, 'type name');
+    $budgetTypeCreationService = new BudgetTypeCreationService($this->entityManager);
+    $budgetTypeCreationService->persistBudgetType($this->budgetCategoryIdToUse, 'type name');
     $budgetTypePersisted = $this->entityManager
       ->getRepository(BudgetType::class)
       ->findOneBy([
@@ -42,8 +54,8 @@ class BudgetTypeCreationServiceTest extends KernelTestCase
 
   public function testReturnsIdOfNewBudgetType(): void
   {
-    $budgetTypeAdditionService = new BudgetTypeCreationService($this->entityManager);
-    $budgetTypeIdPersisted = $budgetTypeAdditionService
+    $budgetTypeCreationService = new BudgetTypeCreationService($this->entityManager);
+    $budgetTypeIdPersisted = $budgetTypeCreationService
       ->persistBudgetType($this->budgetCategoryIdToUse, 'type name')
     ;
 
