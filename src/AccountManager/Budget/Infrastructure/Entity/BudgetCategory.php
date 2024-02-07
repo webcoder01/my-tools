@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'budget_category')]
-final class BudgetCategory extends AbstractEntity
+class BudgetCategory extends AbstractEntity
 {
   #[ORM\Column(type: 'string', length: 80)]
   private ?string $name = null;

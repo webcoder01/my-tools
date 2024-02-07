@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'budget')]
-final class Budget extends AbstractEntity
+class Budget extends AbstractEntity
 {
   #[ORM\Column(type: 'decimal', precision: 7, scale: 2)]
   private ?string $assignedAmount = null;
