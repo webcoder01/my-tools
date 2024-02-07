@@ -16,6 +16,12 @@ doctrine:
               dir: '%kernel.project_dir%/src/AccountManager/Budget/Infrastructure/Entity'
               prefix: 'App\AccountManager\Budget\Infrastructure\Entity'
               alias: App
+            AccountManagerTransaction:
+              type: attribute
+              is_bundle: false
+              dir: '%kernel.project_dir%/src/AccountManager/Transaction/Provider/Entity'
+              prefix: 'App\AccountManager\Transaction\Provider\Entity'
+              alias: App
             CoreSecurity:
                 type: attribute
                 is_bundle: false
