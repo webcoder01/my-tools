@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity]
 #[ORM\Table(name: '`user`')]
-final class User extends AbstractEntity implements UserInterface, PasswordAuthenticatedUserInterface, EntityInterface
+class User extends AbstractEntity implements UserInterface, PasswordAuthenticatedUserInterface, EntityInterface
 {
     #[ORM\Column(length: 50, unique: true)]
     private ?string $username = null;

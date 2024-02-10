@@ -10,11 +10,23 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
+            AccountManagerAccount:
+              type: attribute
+              is_bundle: false
+              dir: '%kernel.project_dir%/src/AccountManager/Account/Provider/Entity'
+              prefix: 'App\AccountManager\Account\Provider\Entity'
+              alias: App
             AccountManagerBudget:
               type: attribute
               is_bundle: false
               dir: '%kernel.project_dir%/src/AccountManager/Budget/Infrastructure/Entity'
               prefix: 'App\AccountManager\Budget\Infrastructure\Entity'
+              alias: App
+            AccountManagerTransaction:
+              type: attribute
+              is_bundle: false
+              dir: '%kernel.project_dir%/src/AccountManager/Transaction/Provider/Entity'
+              prefix: 'App\AccountManager\Transaction\Provider\Entity'
               alias: App
             CoreSecurity:
                 type: attribute
