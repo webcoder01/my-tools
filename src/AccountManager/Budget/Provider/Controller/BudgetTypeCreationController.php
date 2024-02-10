@@ -3,7 +3,7 @@
 namespace App\AccountManager\Budget\Provider\Controller;
 
 use App\AccountManager\Budget\Application\Exception\ForbiddenResourceAccessException;
-use App\AccountManager\Budget\Application\UseCase\BudgetTypeCreationUseCase;
+use App\AccountManager\Budget\Port\Input\BudgetTypeCreationUseCaseInterface;
 use App\Core\Security\Infrastructure\Entity\User;
 use App\Shared\Infrastructure\AbstractApiController;
 use Psr\Log\LoggerInterface;
@@ -18,7 +18,7 @@ class BudgetTypeCreationController extends AbstractApiController
 {
   #[Route(path: '/budget/type/create', name: 'budget_type_creation', methods: ['POST'])]
   public function __invoke(
-    BudgetTypeCreationUseCase $budgetTypeCreationUseCase,
+    BudgetTypeCreationUseCaseInterface $budgetTypeCreationUseCase,
     LoggerInterface $logger,
     Request $request,
   ): JsonResponse {
