@@ -4,33 +4,24 @@ namespace App\AccountManager\Budget\Provider\Controller;
 
 use App\AccountManager\Budget\Application\Exception\ForbiddenResourceAccessException;
 use App\AccountManager\Budget\Port\Input\BudgetTypeCreationUseCaseInterface;
-use App\Core\Security\Infrastructure\Entity\User;
 use App\Shared\Infrastructure\AbstractApiController;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 
 class BudgetTypeCreationController extends AbstractApiController
 {
-  #[Route(path: '/budget/type/create', name: 'budget_type_creation', methods: ['POST'])]
+  #[Route(path: '/budget/type/create', name: 'budget_type_creation')]
   public function __invoke(
     BudgetTypeCreationUseCaseInterface $budgetTypeCreationUseCase,
     LoggerInterface $logger,
     Request $request,
   ): JsonResponse {
+    $this->executeSecurityChecks($request);
     $user = $this->getUser();
-    if (!($user instanceof User)) {
-      throw new UnauthorizedHttpException('Basic');
-    }
-
-    $content = json_decode($request->getContent(), true);
-    if ($this->isContentIncorrect($content)) {
-      throw new BadRequestHttpException();
-    }
+    $content = $this->getContentToArray($request);
 
     try {
       $budgetTypeIdCreated = $budgetTypeCreationUseCase
@@ -50,5 +41,10 @@ class BudgetTypeCreationController extends AbstractApiController
       'category_id' => 'uuid',
       'name' => 'string',
     ];
+  }
+
+  protected function getAuthorizedMethod(): string
+  {
+    return Request::METHOD_POST;
   }
 }
