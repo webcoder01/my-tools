@@ -8,6 +8,7 @@ use App\AccountManager\Budget\Infrastructure\Entity\BudgetCategory;
 use App\AccountManager\Budget\Infrastructure\Entity\BudgetType;
 use App\AccountManager\Budget\Provider\Query\BudgetCategoryAccessByBudgetTypeChecker;
 use App\AccountManager\Budget\Provider\Query\BudgetCategoryAccessByUserChecker;
+use App\AccountManager\Budget\Provider\Service\BudgetTypeUpdateService;
 use App\Core\Security\Infrastructure\Entity\User;
 use DG\BypassFinals;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,14 +25,13 @@ class BudgetTypeUpdateUseCaseTest extends KernelTestCase
 
   protected function setUp(): void
   {
+    self::bootKernel();
     $container = static::getContainer();
     $this->entityManager = $container->get('doctrine')->getManager();
     $budgetCategoryByBudgetTypeIdChecker = new BudgetCategoryAccessByBudgetTypeChecker($this->entityManager);
     $budgetCategoryByUserIdChecker = new BudgetCategoryAccessByUserChecker($this->entityManager);
 
-    $budgetTypeUpdateService = $container
-      ->get('App\AccountManager\Budget\Provider\Service\BudgetTypeUpdateService')
-    ;
+    $budgetTypeUpdateService = $container->get(BudgetTypeUpdateService::class);
     $this->budgetTypeUpdateUseCase = new BudgetTypeUpdateUseCase(
       $budgetCategoryByBudgetTypeIdChecker,
       $budgetCategoryByUserIdChecker,

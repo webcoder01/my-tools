@@ -6,6 +6,7 @@ use App\AccountManager\Budget\Application\Exception\ForbiddenResourceAccessExcep
 use App\AccountManager\Budget\Application\UseCase\BudgetTypeCreationUseCase;
 use App\AccountManager\Budget\Infrastructure\Entity\BudgetCategory;
 use App\AccountManager\Budget\Provider\Query\BudgetCategoryAccessByUserChecker;
+use App\AccountManager\Budget\Provider\Service\BudgetTypeCreationService;
 use App\Core\Security\Infrastructure\Entity\User;
 use DG\BypassFinals;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,13 +23,12 @@ class BudgetTypeCreationUseCaseTest extends KernelTestCase
 
   protected function setUp(): void
   {
+    self::bootKernel();
     $container = static::getContainer();
     $this->entityManager = $container->get('doctrine')->getManager();
     $budgetCategoryByUserIdFinder = new BudgetCategoryAccessByUserChecker($this->entityManager);
 
-    $budgetTypeCreationService = $container
-      ->get('App\AccountManager\Budget\Provider\Service\BudgetTypeCreationService')
-    ;
+    $budgetTypeCreationService = $container->get(BudgetTypeCreationService::class);
     $this->budgetTypeCreationUseCase = new BudgetTypeCreationUseCase(
       $budgetCategoryByUserIdFinder,
       $budgetTypeCreationService
