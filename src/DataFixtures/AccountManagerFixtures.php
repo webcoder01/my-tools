@@ -103,6 +103,7 @@ class AccountManagerFixtures extends Fixture implements DependentFixtureInterfac
     $vacationBudget->setYear($year);
     $vacationBudget->setAssignedAmount('200.00');
     $vacationBudget->setAvailableAmount('-25.00');
+    $manager->persist($vacationBudget);
   }
 
   private function loadAccounts(ObjectManager $manager): void
