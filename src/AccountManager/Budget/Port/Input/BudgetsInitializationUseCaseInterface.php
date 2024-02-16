@@ -2,7 +2,12 @@
 
 namespace App\AccountManager\Budget\Port\Input;
 
+use App\AccountManager\Budget\Application\Exception\IncorrectBudgetDatesException;
+
 interface BudgetsInitializationUseCaseInterface
 {
-  public function initiate(): void;
+  /**
+   * @throws IncorrectBudgetDatesException
+   */
+  public function initiate(string $userId, int $month, int $year): void;
 }
