@@ -39,6 +39,7 @@ when@test:
     doctrine:
         dbal:
             dbname_suffix: ''
+            use_savepoints: true
 
 when@prod:
     doctrine:
