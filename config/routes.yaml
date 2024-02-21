@@ -17,9 +17,3 @@ core_security:
     path: ../src/Core/Security/Application/Controller/
     namespace: App\Core\Security\Application\Controller
   type: attribute
-
-controllers:
-  resource:
-    path: ../src/Controller/
-    namespace: App\Controller
-  type: attribute
