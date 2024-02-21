@@ -1,8 +1,8 @@
 <?php
 
-namespace App\AccountManager\Budget\Application\UseCase;
+namespace App\AccountManager\Budget\Domain\UseCase;
 
-use App\AccountManager\Budget\Application\Exception\ForbiddenResourceAccessException;
+use App\AccountManager\Budget\Domain\Exception\ForbiddenResourceAccessException;
 use App\AccountManager\Budget\Port\Input\BudgetTypeCreationUseCaseInterface;
 use App\AccountManager\Budget\Port\Output\BudgetCategoryAccessByUserCheckerInterface;
 use App\AccountManager\Budget\Port\Output\BudgetTypeCreationServiceInterface;

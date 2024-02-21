@@ -1,6 +1,6 @@
 <?php
 
-namespace App\AccountManager\Budget\Application\Exception;
+namespace App\AccountManager\Budget\Domain\Exception;
 
 use Exception;
 

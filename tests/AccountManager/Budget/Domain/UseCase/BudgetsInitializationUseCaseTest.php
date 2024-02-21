@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Tests\AccountManager\Budget\Application\UseCase;
+namespace App\Tests\AccountManager\Budget\Domain\UseCase;
 
-use App\AccountManager\Budget\Application\Exception\BudgetsAlreadyInitializedException;
-use App\AccountManager\Budget\Application\Exception\IncorrectBudgetDatesException;
-use App\AccountManager\Budget\Application\UseCase\BudgetsInitializationUseCase;
+use App\AccountManager\Budget\Domain\Exception\BudgetsAlreadyInitializedException;
+use App\AccountManager\Budget\Domain\Exception\IncorrectBudgetDatesException;
+use App\AccountManager\Budget\Domain\UseCase\BudgetsInitializationUseCase;
 use App\AccountManager\Budget\Infrastructure\Entity\Budget;
 use App\AccountManager\Budget\Infrastructure\Entity\BudgetCategory;
 use App\AccountManager\Budget\Infrastructure\Entity\BudgetType;

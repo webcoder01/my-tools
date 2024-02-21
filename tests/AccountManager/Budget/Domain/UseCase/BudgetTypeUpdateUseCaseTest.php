@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Tests\AccountManager\Budget\Application\UseCase;
+namespace App\Tests\AccountManager\Budget\Domain\UseCase;
 
-use App\AccountManager\Budget\Application\Exception\ForbiddenResourceAccessException;
-use App\AccountManager\Budget\Application\UseCase\BudgetTypeUpdateUseCase;
+use App\AccountManager\Budget\Domain\Exception\ForbiddenResourceAccessException;
+use App\AccountManager\Budget\Domain\UseCase\BudgetTypeUpdateUseCase;
 use App\AccountManager\Budget\Infrastructure\Entity\BudgetCategory;
 use App\AccountManager\Budget\Infrastructure\Entity\BudgetType;
 use App\AccountManager\Budget\Provider\Query\BudgetCategoryAccessByBudgetTypeChecker;

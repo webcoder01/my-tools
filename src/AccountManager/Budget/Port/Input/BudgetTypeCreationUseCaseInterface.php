@@ -2,7 +2,7 @@
 
 namespace App\AccountManager\Budget\Port\Input;
 
-use App\AccountManager\Budget\Application\Exception\ForbiddenResourceAccessException;
+use App\AccountManager\Budget\Domain\Exception\ForbiddenResourceAccessException;
 
 interface BudgetTypeCreationUseCaseInterface
 {

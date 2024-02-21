@@ -1,6 +1,6 @@
 <?php
 
-namespace App\AccountManager\Budget\Application\UseCase;
+namespace App\AccountManager\Budget\Domain\UseCase;
 
 use App\AccountManager\Budget\Port\Input\BudgetViewerUseCaseInterface;
 use App\AccountManager\Budget\Port\Output\BudgetViewerQueryInterface;

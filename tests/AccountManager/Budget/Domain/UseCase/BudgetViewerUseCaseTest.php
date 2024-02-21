@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\AccountManager\Budget\Application\UseCase;
+namespace App\Tests\AccountManager\Budget\Domain\UseCase;
 
-use App\AccountManager\Budget\Application\UseCase\BudgetViewerUseCase;
+use App\AccountManager\Budget\Domain\UseCase\BudgetViewerUseCase;
 use App\AccountManager\Budget\Port\Output\BudgetViewerQueryInterface;
 use DateTime;
 use PHPUnit\Framework\TestCase;

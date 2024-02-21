@@ -2,7 +2,7 @@
 
 namespace App\AccountManager\Budget\Application\Controller;
 
-use App\AccountManager\Budget\Application\Exception\ForbiddenResourceAccessException;
+use App\AccountManager\Budget\Domain\Exception\ForbiddenResourceAccessException;
 use App\AccountManager\Budget\Port\Input\BudgetTypeUpdateUseCaseInterface;
 use App\Shared\Infrastructure\AbstractApiController;
 use Psr\Log\LoggerInterface;

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\AccountManager\Budget\Application\UseCase;
+namespace App\AccountManager\Budget\Domain\UseCase;
 
-use App\AccountManager\Budget\Application\Exception\BudgetsAlreadyInitializedException;
-use App\AccountManager\Budget\Application\Exception\IncorrectBudgetDatesException;
+use App\AccountManager\Budget\Domain\Exception\BudgetsAlreadyInitializedException;
+use App\AccountManager\Budget\Domain\Exception\IncorrectBudgetDatesException;
 use App\AccountManager\Budget\Port\Input\BudgetsInitializationUseCaseInterface;
 use App\AccountManager\Budget\Port\Output\BudgetsInitializationQueryInterface;
 use App\AccountManager\Budget\Port\Output\BudgetsInitializationServiceInterface;
