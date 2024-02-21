@@ -2,8 +2,8 @@
 
 namespace App\Core\Security\Application\Controller;
 
-use App\Core\Security\Infrastructure\Entity\User;
-use App\Core\Security\Infrastructure\Form\LoginType;
+use App\Core\Security\Provider\Entity\User;
+use App\Core\Security\Provider\Form\LoginType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;

@@ -3,7 +3,7 @@
 namespace App\AccountManager\Transaction\Provider\Entity;
 
 use App\AccountManager\Account\Provider\Entity\Account;
-use App\AccountManager\Budget\Infrastructure\Entity\BudgetType;
+use App\AccountManager\Budget\Provider\Entity\BudgetType;
 use App\Shared\Infrastructure\AbstractEntity;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\AccountManager\Budget\Infrastructure\Entity;
+namespace App\AccountManager\Budget\Provider\Entity;
 
 use App\Shared\Infrastructure\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;

@@ -2,8 +2,8 @@
 
 namespace App\Tests\AccountManager\Budget\Provider\Service;
 
-use App\AccountManager\Budget\Infrastructure\Entity\BudgetCategory;
-use App\AccountManager\Budget\Infrastructure\Entity\BudgetType;
+use App\AccountManager\Budget\Provider\Entity\BudgetCategory;
+use App\AccountManager\Budget\Provider\Entity\BudgetType;
 use App\AccountManager\Budget\Provider\Service\BudgetTypeUpdateService;
 use DG\BypassFinals;
 use Doctrine\ORM\EntityManagerInterface;

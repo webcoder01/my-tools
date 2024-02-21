@@ -3,7 +3,7 @@
 namespace App\Tests\AccountManager\Budget\Provider\Query;
 
 use App\AccountManager\Budget\Provider\Query\BudgetViewerQuery;
-use App\Core\Security\Infrastructure\Entity\User;
+use App\Core\Security\Provider\Entity\User;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;

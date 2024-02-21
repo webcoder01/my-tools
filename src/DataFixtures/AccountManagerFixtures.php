@@ -3,9 +3,9 @@
 namespace App\DataFixtures;
 
 use App\AccountManager\Account\Provider\Entity\Account;
-use App\AccountManager\Budget\Infrastructure\Entity\Budget;
-use App\AccountManager\Budget\Infrastructure\Entity\BudgetCategory;
-use App\AccountManager\Budget\Infrastructure\Entity\BudgetType;
+use App\AccountManager\Budget\Provider\Entity\Budget;
+use App\AccountManager\Budget\Provider\Entity\BudgetCategory;
+use App\AccountManager\Budget\Provider\Entity\BudgetType;
 use App\AccountManager\Transaction\Provider\Entity\Transaction;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;

@@ -2,7 +2,7 @@
 
 namespace App\AccountManager\Account\Provider\Entity;
 
-use App\Core\Security\Infrastructure\Entity\User;
+use App\Core\Security\Provider\Entity\User;
 use App\Shared\Infrastructure\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
 

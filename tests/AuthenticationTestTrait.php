@@ -2,7 +2,7 @@
 
 namespace App\Tests;
 
-use App\Core\Security\Infrastructure\Entity\User;
+use App\Core\Security\Provider\Entity\User;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\DependencyInjection\Container;
 

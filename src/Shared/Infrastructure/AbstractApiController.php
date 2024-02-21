@@ -2,7 +2,7 @@
 
 namespace App\Shared\Infrastructure;
 
-use App\Core\Security\Infrastructure\Entity\User;
+use App\Core\Security\Provider\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;

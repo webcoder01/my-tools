@@ -2,7 +2,7 @@
 
 namespace App\Tests\AccountManager\Budget\Application\Controller;
 
-use App\Core\Security\Infrastructure\Entity\User;
+use App\Core\Security\Provider\Entity\User;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Prophecy\PhpUnit\ProphecyTrait;

@@ -2,10 +2,10 @@
 
 namespace App\AccountManager\Budget\Provider\Service;
 
-use App\AccountManager\Budget\Infrastructure\Entity\Budget;
-use App\AccountManager\Budget\Infrastructure\Entity\BudgetCategory;
-use App\AccountManager\Budget\Infrastructure\Entity\BudgetType;
 use App\AccountManager\Budget\Port\Output\BudgetsInitializationServiceInterface;
+use App\AccountManager\Budget\Provider\Entity\Budget;
+use App\AccountManager\Budget\Provider\Entity\BudgetCategory;
+use App\AccountManager\Budget\Provider\Entity\BudgetType;
 use App\Shared\Provider\AbstractService;
 use DateTime;
 

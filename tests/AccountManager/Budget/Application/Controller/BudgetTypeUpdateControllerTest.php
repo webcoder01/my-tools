@@ -2,9 +2,9 @@
 
 namespace App\Tests\AccountManager\Budget\Application\Controller;
 
-use App\AccountManager\Budget\Infrastructure\Entity\BudgetCategory;
-use App\AccountManager\Budget\Infrastructure\Entity\BudgetType;
-use App\Core\Security\Infrastructure\Entity\User;
+use App\AccountManager\Budget\Provider\Entity\BudgetCategory;
+use App\AccountManager\Budget\Provider\Entity\BudgetType;
+use App\Core\Security\Provider\Entity\User;
 use App\Tests\AuthenticationTestTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Uid\Uuid;

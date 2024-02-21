@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Security\Infrastructure\Entity;
+namespace App\Core\Security\Provider\Entity;
 
 use App\Shared\Infrastructure\AbstractEntity;
 use App\Shared\Infrastructure\EntityInterface;

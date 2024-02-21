@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Core\Security\Infrastructure\Form;
+namespace App\Core\Security\Provider\Form;
 
-use App\Core\Security\Infrastructure\Entity\User;
-use App\Core\Security\Infrastructure\LoginFormAuthenticator;
+use App\Core\Security\Provider\Entity\User;
 use App\Shared\Infrastructure\AbstractAppForm;
 use App\Shared\Infrastructure\EntityInterface;
 use App\Shared\Infrastructure\FormCreatorInterface;
-use phpDocumentor\Reflection\Types\Self_;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;

@@ -2,7 +2,7 @@
 
 namespace App\Tests\Core\Security\Entity;
 
-use App\Core\Security\Infrastructure\Entity\User;
+use App\Core\Security\Provider\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase

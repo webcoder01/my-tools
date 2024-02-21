@@ -20,7 +20,7 @@ doctrine:
               type: attribute
               is_bundle: false
               dir: '%kernel.project_dir%/src/AccountManager/Budget/Infrastructure/Entity'
-              prefix: 'App\AccountManager\Budget\Infrastructure\Entity'
+              prefix: 'App\AccountManager\Budget\Provider\Entity'
               alias: App
             AccountManagerTransaction:
               type: attribute
@@ -32,7 +32,7 @@ doctrine:
                 type: attribute
                 is_bundle: false
                 dir: '%kernel.project_dir%/src/Core/Security/Infrastructure/Entity'
-                prefix: 'App\Core\Security\Infrastructure\Entity'
+                prefix: 'App\Core\Security\Provider\Entity'
                 alias: App
 
 when@test:
