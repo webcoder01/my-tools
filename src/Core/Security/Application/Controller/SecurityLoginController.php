@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Security\Infrastructure\Controller;
+namespace App\Core\Security\Application\Controller;
 
 use App\Core\Security\Infrastructure\Entity\User;
 use App\Core\Security\Infrastructure\Form\LoginType;

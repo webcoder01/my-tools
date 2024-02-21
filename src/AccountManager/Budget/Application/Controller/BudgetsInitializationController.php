@@ -1,6 +1,6 @@
 <?php
 
-namespace App\AccountManager\Budget\Provider\Controller;
+namespace App\AccountManager\Budget\Application\Controller;
 
 use App\Shared\Infrastructure\AbstractApiController;
 use Symfony\Component\HttpFoundation\JsonResponse;

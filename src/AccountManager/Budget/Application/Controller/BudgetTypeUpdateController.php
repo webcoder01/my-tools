@@ -1,9 +1,9 @@
 <?php
 
-namespace App\AccountManager\Budget\Provider\Controller;
+namespace App\AccountManager\Budget\Application\Controller;
 
 use App\AccountManager\Budget\Application\Exception\ForbiddenResourceAccessException;
-use App\AccountManager\Budget\Port\Input\BudgetTypeCreationUseCaseInterface;
+use App\AccountManager\Budget\Port\Input\BudgetTypeUpdateUseCaseInterface;
 use App\Shared\Infrastructure\AbstractApiController;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -11,40 +11,41 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Attribute\Route;
 
-class BudgetTypeCreationController extends AbstractApiController
+class BudgetTypeUpdateController extends AbstractApiController
 {
-  #[Route(path: '/budget/type/create', name: 'budget_type_creation')]
+  #[Route(path: '/budget/type/update', name: 'budget_type_update')]
   public function __invoke(
-    BudgetTypeCreationUseCaseInterface $budgetTypeCreationUseCase,
-    LoggerInterface $logger,
-    Request $request,
+    BudgetTypeUpdateUseCaseInterface $budgetTypeUpdateUseCase,
+    LoggerInterface         $logger,
+    Request                 $request
   ): JsonResponse {
     $this->executeSecurityChecks($request);
     $user = $this->getUser();
     $content = $this->getContentToArray($request);
 
     try {
-      $budgetTypeIdCreated = $budgetTypeCreationUseCase
-        ->createBudgetType($user->getId(), $content['category_id'], $content['name'])
+      $budgetTypeUpdateUseCase
+        ->updateBudgetType($user->getId(), $content['type_id'], $content['category_id'], $content['name'])
       ;
     } catch (ForbiddenResourceAccessException $exception) {
       $logger->error($exception);
       throw new HttpException(403);
     }
 
-    return new JsonResponse(['id' => $budgetTypeIdCreated], 201);
+    return new JsonResponse(['id' => $content['type_id']], 200);
   }
 
   public function getKeysAndValueTypesExpectedInContent(): array
   {
     return [
       'category_id' => 'uuid',
+      'type_id' => 'uuid',
       'name' => 'string',
     ];
   }
 
   protected function getAuthorizedMethod(): string
   {
-    return Request::METHOD_POST;
+    return Request::METHOD_PUT;
   }
 }

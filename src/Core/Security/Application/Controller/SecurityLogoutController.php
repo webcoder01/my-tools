@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Security\Infrastructure\Controller;
+namespace App\Core\Security\Application\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Attribute\Route;

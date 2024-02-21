@@ -1,21 +1,21 @@
 account_manager:
   resource:
-    path: ../src/AccountManager/Budget/Provider/Controller/
-    namespace: App\AccountManager\Budget\Provider\Controller
+    path: ../src/AccountManager/Budget/Application/Controller/
+    namespace: App\AccountManager\Budget\Application\Controller
   type: attribute
   prefix: '/gestion-de-compte'
   name_prefix: 'app_account_manager_'
 
 core_home:
   resource:
-    path: ../src/Core/Home/Infrastructure/Controller/
-    namespace: App\Core\Home\Infrastructure\Controller
+    path: ../src/Core/Home/Application/Controller/
+    namespace: App\Core\Home\Application\Controller
   type: attribute
 
 core_security:
   resource:
-    path: ../src/Core/Security/Infrastructure/Controller/
-    namespace: App\Core\Security\Infrastructure\Controller
+    path: ../src/Core/Security/Application/Controller/
+    namespace: App\Core\Security\Application\Controller
   type: attribute
 
 controllers:

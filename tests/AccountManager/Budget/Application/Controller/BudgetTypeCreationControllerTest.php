@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\AccountManager\Budget\Provider\Controller;
+namespace App\Tests\AccountManager\Budget\Application\Controller;
 
 use App\AccountManager\Budget\Infrastructure\Entity\BudgetCategory;
 use App\Tests\AuthenticationTestTrait;
