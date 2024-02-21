@@ -3,6 +3,7 @@
 namespace App\Tests\AccountManager\Budget\Application\Controller;
 
 use App\Tests\AuthenticationTestTrait;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class BudgetsInitializationControllerTest extends WebTestCase
@@ -12,7 +13,7 @@ class BudgetsInitializationControllerTest extends WebTestCase
   public function testReturnsUnauthorizedAccessIfUserIsNotLoggedIn(): void
   {
     $client = static::createClient();
-    $client->request('PUT', '/gestion-de-compte/budget/initiate');
+    $client->request('POST', '/gestion-de-compte/budget/initialise');
 
     $this->assertResponseStatusCodeSame(401);
   }
@@ -24,7 +25,7 @@ class BudgetsInitializationControllerTest extends WebTestCase
   {
     $client = static::createClient();
     $this->loginUser($client, static::getContainer());
-    $client->request($method, '/gestion-de-compte/budget/initiate', [], [], [], '[]');
+    $client->request($method, '/gestion-de-compte/budget/initialise', [], [], [], '[]');
 
     $this->assertResponseStatusCodeSame($statusCode);
   }
@@ -42,8 +43,24 @@ class BudgetsInitializationControllerTest extends WebTestCase
   {
     $client = static::createClient();
     $this->loginUser($client, static::getContainer());
-    $client->request('PUT', '/gestion-de-compte/budget/initiate', [], [], [], '[]');
+    $client->request('POST', '/gestion-de-compte/budget/initialise', [], [], [], '[]');
 
     $this->assertResponseStatusCodeSame(400);
+  }
+
+  public function testReturns200ResponseStatusCodeWhenBudgetIsInitialized(): void
+  {
+    $client = static::createClient();
+    $this->loginUser($client, static::getContainer());
+
+    $nextMonthDate = new DateTime('next month');
+    $content = json_encode([
+      'month' => (int) $nextMonthDate->format('n'),
+      'year' => (int) $nextMonthDate->format('Y'),
+    ]);
+
+    $client->request('POST', '/gestion-de-compte/budget/initialise', [], [], [], $content);
+
+    $this->assertResponseStatusCodeSame(200);
   }
 }
