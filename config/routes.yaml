@@ -6,6 +6,14 @@ account_manager_budget:
   prefix: '/gestion-de-compte/budget'
   name_prefix: 'app_account_manager_budget_'
 
+account_manager_account:
+  resource:
+    path: ../src/AccountManager/Account/Application/Controller/
+    namespace: App\AccountManager\Account\Application\Controller
+  type: attribute
+  prefix: '/gestion-de-compte/compte'
+  name_prefix: 'app_account_manager_account_'
+
 core_home:
   resource:
     path: ../src/Core/Home/Application/Controller/
