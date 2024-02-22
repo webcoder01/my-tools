@@ -16,7 +16,7 @@ class BudgetTypeUpdateControllerTest extends WebTestCase
   public function testReturnsUnauthorizedAccessIfUserIsNotLoggedIn(): void
   {
     $client = static::createClient();
-    $client->request('PUT', '/gestion-de-compte/budget/type/update');
+    $client->request('PUT', '/gestion-de-compte/budget/type/edition');
 
     $this->assertResponseStatusCodeSame(401);
   }
@@ -28,7 +28,7 @@ class BudgetTypeUpdateControllerTest extends WebTestCase
   {
     $client = static::createClient();
     $this->loginUser($client, static::getContainer());
-    $client->request($method, '/gestion-de-compte/budget/type/update', [], [], [], '[]');
+    $client->request($method, '/gestion-de-compte/budget/type/edition', [], [], [], '[]');
 
     $this->assertResponseStatusCodeSame($statusCode);
   }
@@ -46,7 +46,7 @@ class BudgetTypeUpdateControllerTest extends WebTestCase
   {
     $client = static::createClient();
     $this->loginUser($client, static::getContainer());
-    $client->request('PUT', '/gestion-de-compte/budget/type/update', [], [], [], '[]');
+    $client->request('PUT', '/gestion-de-compte/budget/type/edition', [], [], [], '[]');
 
     $this->assertResponseStatusCodeSame(400);
   }
@@ -61,7 +61,7 @@ class BudgetTypeUpdateControllerTest extends WebTestCase
       'type_id' => Uuid::v4()->toRfc4122(),
       'name' => 'test',
     ];
-    $client->request('PUT', '/gestion-de-compte/budget/type/update', [], [], [], json_encode($data));
+    $client->request('PUT', '/gestion-de-compte/budget/type/edition', [], [], [], json_encode($data));
 
     $this->assertResponseStatusCodeSame(403);
   }
@@ -88,7 +88,7 @@ class BudgetTypeUpdateControllerTest extends WebTestCase
       'type_id' => $budgetTypeOfUser->getId(),
       'name' => 'budget type updated',
     ];
-    $client->request('PUT', '/gestion-de-compte/budget/type/update', [], [], [], json_encode($data));
+    $client->request('PUT', '/gestion-de-compte/budget/type/edition', [], [], [], json_encode($data));
 
     $this->assertResponseStatusCodeSame(200);
   }

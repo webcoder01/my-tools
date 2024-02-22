@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class BudgetsInitializationController extends AbstractApiController
 {
-  #[Route(path: 'budget/initialise', name: 'budget_initiate')]
+  #[Route(path: '/initialise', name: 'initiate')]
   public function __invoke(
     BudgetsInitializationUseCaseInterface $budgetsInitializationUseCase,
     Request $request

@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class BudgetTypeCreationController extends AbstractApiController
 {
-  #[Route(path: '/budget/type/create', name: 'budget_type_creation')]
+  #[Route(path: '/creation', name: 'type_creation')]
   public function __invoke(
     BudgetTypeCreationUseCaseInterface $budgetTypeCreationUseCase,
     LoggerInterface $logger,

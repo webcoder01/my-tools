@@ -1,10 +1,10 @@
-account_manager:
+account_manager_budget:
   resource:
     path: ../src/AccountManager/Budget/Application/Controller/
     namespace: App\AccountManager\Budget\Application\Controller
   type: attribute
-  prefix: '/gestion-de-compte'
-  name_prefix: 'app_account_manager_'
+  prefix: '/gestion-de-compte/budget'
+  name_prefix: 'app_account_manager_budget_'
 
 core_home:
   resource:
