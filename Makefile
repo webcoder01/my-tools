@@ -1,5 +1,7 @@
 init:
 	composer install
+	npm install
+	npx husky init
 	php bin/console tailwind:init
 	symfony server:ca:install
 

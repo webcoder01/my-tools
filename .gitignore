@@ -15,3 +15,6 @@
 # Phpunit
 .phpunit.result.cache
 /phpunit.xml
+
+# JS
+#/node_modules
