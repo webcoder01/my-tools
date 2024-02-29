@@ -8,6 +8,8 @@
 /public/bundles/
 /var/
 /vendor/
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
 
 # IDE
 /.idea

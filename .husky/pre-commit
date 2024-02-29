@@ -1,0 +1,14 @@
+PHP_FILES=$(git diff --name-status --cached | grep -v '^D' | awk '{print $NF}' | egrep 'php$' | xargs echo)
+
+if  [[ "${PHP_FILES}" ]]
+then
+  echo "Running PHP-CS-FIXER"
+  vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --diff --using-cache=no -- $FILES
+
+  MODIFIED=$(git status --short | grep '^.M' | awk '{print $NF}') && true
+  if  [[ "${MODIFIED}" ]]
+  then
+    echo "Commit aborted. Some files have been refactored"
+    exit 1
+  fi
+fi
