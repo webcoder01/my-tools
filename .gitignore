@@ -17,4 +17,4 @@
 /phpunit.xml
 
 # JS
-#/node_modules
+/node_modules
