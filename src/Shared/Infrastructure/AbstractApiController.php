@@ -12,60 +12,60 @@ use Symfony\Component\Uid\Uuid;
 
 abstract class AbstractApiController extends AbstractController
 {
-  abstract public function getKeysAndValueTypesExpectedInContent(): array;
+    abstract public function getKeysAndValueTypesExpectedInContent(): array;
 
-  abstract protected function getAuthorizedMethod(): string;
+    abstract protected function getAuthorizedMethod(): string;
 
-  protected function isContentIncorrect(array $contentParsed): bool
-  {
-    $keysAndValuesTypesExpected = $this->getKeysAndValueTypesExpectedInContent();
+    protected function isContentIncorrect(array $contentParsed): bool
+    {
+        $keysAndValuesTypesExpected = $this->getKeysAndValueTypesExpectedInContent();
 
-    if (count($contentParsed) === 0) {
-      return true;
+        if (0 === count($contentParsed)) {
+            return true;
+        }
+
+        foreach ($contentParsed as $key => $value) {
+            if (!isset($keysAndValuesTypesExpected[$key])) {
+                return true;
+            }
+
+            if ('uuid' === $keysAndValuesTypesExpected[$key] && !Uuid::isValid($value)) {
+                return true;
+            }
+
+            if ('uuid' !== $keysAndValuesTypesExpected[$key] && gettype($value) !== $keysAndValuesTypesExpected[$key]) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    foreach ($contentParsed as $key => $value) {
-      if (!isset($keysAndValuesTypesExpected[$key])) {
-        return true;
-      }
+    /**
+     * @throws UnauthorizedHttpException
+     * @throws MethodNotAllowedHttpException
+     * @throws BadRequestHttpException
+     */
+    protected function executeSecurityChecks(Request $request): void
+    {
+        $user = $this->getUser();
+        if (!($user instanceof User)) {
+            throw new UnauthorizedHttpException('Basic');
+        }
 
-      if ($keysAndValuesTypesExpected[$key] === 'uuid' && !Uuid::isValid($value)) {
-        return true;
-      }
+        $authorizedMethod = $this->getAuthorizedMethod();
+        if ($request->getMethod() !== $authorizedMethod) {
+            throw new MethodNotAllowedHttpException([$authorizedMethod]);
+        }
 
-      if ($keysAndValuesTypesExpected[$key] !== 'uuid' && gettype($value) !== $keysAndValuesTypesExpected[$key]) {
-        return true;
-      }
+        $content = $this->getContentToArray($request);
+        if ($this->isContentIncorrect($content)) {
+            throw new BadRequestHttpException();
+        }
     }
 
-    return false;
-  }
-
-  /**
-   * @throws UnauthorizedHttpException
-   * @throws MethodNotAllowedHttpException
-   * @throws BadRequestHttpException
-   */
-  protected function executeSecurityChecks(Request $request): void
-  {
-    $user = $this->getUser();
-    if (!($user instanceof User)) {
-      throw new UnauthorizedHttpException('Basic');
+    protected function getContentToArray(Request $request): array
+    {
+        return json_decode($request->getContent(), true);
     }
-
-    $authorizedMethod = $this->getAuthorizedMethod();
-    if ($request->getMethod() !== $authorizedMethod) {
-      throw new MethodNotAllowedHttpException([$authorizedMethod]);
-    }
-
-    $content = $this->getContentToArray($request);
-    if ($this->isContentIncorrect($content)) {
-      throw new BadRequestHttpException();
-    }
-  }
-
-  protected function getContentToArray(Request $request): array
-  {
-    return json_decode($request->getContent(), true);
-  }
 }

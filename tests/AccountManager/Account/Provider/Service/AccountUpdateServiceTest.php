@@ -10,35 +10,35 @@ use Symfony\Component\Uid\Uuid;
 
 class AccountUpdateServiceTest extends KernelTestCase
 {
-  public function testThrowsEntityNotFoundExceptionIfAccountIsNotFound(): void
-  {
-    self::bootKernel();
-    $entityManager = self::getContainer()->get('doctrine')->getManager();
+    public function testThrowsEntityNotFoundExceptionIfAccountIsNotFound(): void
+    {
+        self::bootKernel();
+        $entityManager = self::getContainer()->get('doctrine')->getManager();
 
-    $this->expectException(EntityNotFoundException::class);
+        $this->expectException(EntityNotFoundException::class);
 
-    $accountUpdateService = new AccountUpdateService($entityManager);
-    $accountUpdateService->update(Uuid::v4(), 'new account name');
-  }
+        $accountUpdateService = new AccountUpdateService($entityManager);
+        $accountUpdateService->update(Uuid::v4(), 'new account name');
+    }
 
-  public function testAccountNameIsUpdated(): void
-  {
-    self::bootKernel();
-    $entityManager = self::getContainer()->get('doctrine')->getManager();
+    public function testAccountNameIsUpdated(): void
+    {
+        self::bootKernel();
+        $entityManager = self::getContainer()->get('doctrine')->getManager();
 
-    $accountToUpdate = $entityManager
-      ->getRepository(Account::class)
-      ->findOneBy(['name' => 'Compte courant CCP'])
-    ;
+        $accountToUpdate = $entityManager
+          ->getRepository(Account::class)
+          ->findOneBy(['name' => 'Compte courant CCP'])
+        ;
 
-    $accountUpdateService = new AccountUpdateService($entityManager);
-    $accountUpdateService->update($accountToUpdate->getId(), 'new account name');
+        $accountUpdateService = new AccountUpdateService($entityManager);
+        $accountUpdateService->update($accountToUpdate->getId(), 'new account name');
 
-    $accountUpdated = $entityManager
-      ->getRepository(Account::class)
-      ->findOneBy(['name' => 'new account name'])
-    ;
+        $accountUpdated = $entityManager
+          ->getRepository(Account::class)
+          ->findOneBy(['name' => 'new account name'])
+        ;
 
-    $this->assertSame($accountToUpdate->getId(), $accountUpdated->getId());
-  }
+        $this->assertSame($accountToUpdate->getId(), $accountUpdated->getId());
+    }
 }

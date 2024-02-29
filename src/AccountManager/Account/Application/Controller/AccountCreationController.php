@@ -10,39 +10,39 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class AccountCreationController extends AbstractApiController
 {
-  private AccountCreationUseCaseInterface $accountCreationUseCase;
+    private AccountCreationUseCaseInterface $accountCreationUseCase;
 
-  public function __construct(AccountCreationUseCaseInterface $accountCreationUseCase)
-  {
-    $this->accountCreationUseCase = $accountCreationUseCase;
-  }
+    public function __construct(AccountCreationUseCaseInterface $accountCreationUseCase)
+    {
+        $this->accountCreationUseCase = $accountCreationUseCase;
+    }
 
-  #[Route(path: '/creation', name: 'creation')]
-  public function __invoke(Request $request): JsonResponse
-  {
-    $this->executeSecurityChecks($request);
-    $user = $this->getUser();
-    $content = $this->getContentToArray($request);
+    #[Route(path: '/creation', name: 'creation')]
+    public function __invoke(Request $request): JsonResponse
+    {
+        $this->executeSecurityChecks($request);
+        $user = $this->getUser();
+        $content = $this->getContentToArray($request);
 
-    $newAccountId = $this->accountCreationUseCase->createOne(
-      $user->getId(),
-      $content['name'],
-      $content['starting_balance']
-    );
+        $newAccountId = $this->accountCreationUseCase->createOne(
+            $user->getId(),
+            $content['name'],
+            $content['starting_balance']
+        );
 
-    return new JsonResponse(['id' => $newAccountId], 201);
-  }
+        return new JsonResponse(['id' => $newAccountId], 201);
+    }
 
-  public function getKeysAndValueTypesExpectedInContent(): array
-  {
-    return [
-      'name' => 'string',
-      'starting_balance' => 'string',
-    ];
-  }
+    public function getKeysAndValueTypesExpectedInContent(): array
+    {
+        return [
+          'name' => 'string',
+          'starting_balance' => 'string',
+        ];
+    }
 
-  protected function getAuthorizedMethod(): string
-  {
-    return Request::METHOD_POST;
-  }
+    protected function getAuthorizedMethod(): string
+    {
+        return Request::METHOD_POST;
+    }
 }

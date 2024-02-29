@@ -10,30 +10,30 @@ use Doctrine\ORM\EntityNotFoundException;
 
 final class BudgetTypeCreationService implements BudgetTypeCreationServiceInterface
 {
-  private EntityManagerInterface $entityManager;
+    private EntityManagerInterface $entityManager;
 
-  public function __construct(EntityManagerInterface $entityManager)
-  {
-    $this->entityManager = $entityManager;
-  }
-
-  /**
-   * @throws EntityNotFoundException
-   */
-  public function persistBudgetType(string $categoryId, string $name): string
-  {
-    $budgetCategory = $this->entityManager->getRepository(BudgetCategory::class)->find($categoryId);
-    if ($budgetCategory === null) {
-      throw new EntityNotFoundException();
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
     }
 
-    $budgetType = new BudgetType();
-    $budgetType->setName($name);
-    $budgetType->setCategory($budgetCategory);
+    /**
+     * @throws EntityNotFoundException
+     */
+    public function persistBudgetType(string $categoryId, string $name): string
+    {
+        $budgetCategory = $this->entityManager->getRepository(BudgetCategory::class)->find($categoryId);
+        if (null === $budgetCategory) {
+            throw new EntityNotFoundException();
+        }
 
-    $this->entityManager->persist($budgetType);
-    $this->entityManager->flush();
+        $budgetType = new BudgetType();
+        $budgetType->setName($name);
+        $budgetType->setCategory($budgetCategory);
 
-    return $budgetType->getId();
-  }
+        $this->entityManager->persist($budgetType);
+        $this->entityManager->flush();
+
+        return $budgetType->getId();
+    }
 }

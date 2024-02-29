@@ -13,45 +13,45 @@ use Symfony\Component\Uid\Uuid;
 
 class AccountUpdateUseCaseTest extends TestCase
 {
-  use ProphecyTrait;
+    use ProphecyTrait;
 
-  public function testThrowsForbiddenResourceAccessExceptionIfUserDoesNotOwnAccount(): void
-  {
-    $accountByUserFinderService = $this->prophesize(AccountByUserFinderServiceInterface::class);
-    $accountByUserFinderService
-      ->isAccountOwnedByUser(Argument::type('string'), Argument::type('string'))
-      ->willReturn(false)
-    ;
+    public function testThrowsForbiddenResourceAccessExceptionIfUserDoesNotOwnAccount(): void
+    {
+        $accountByUserFinderService = $this->prophesize(AccountByUserFinderServiceInterface::class);
+        $accountByUserFinderService
+          ->isAccountOwnedByUser(Argument::type('string'), Argument::type('string'))
+          ->willReturn(false)
+        ;
 
-    $accountUpdateService = $this->prophesize(AccountUpdateServiceInterface::class);
+        $accountUpdateService = $this->prophesize(AccountUpdateServiceInterface::class);
 
-    $this->expectException(ForbiddenResourceAccessException::class);
+        $this->expectException(ForbiddenResourceAccessException::class);
 
-    $accountUpdateUseCase = new AccountUpdateUseCase(
-      $accountByUserFinderService->reveal(),
-      $accountUpdateService->reveal()
-    );
-    $accountUpdateUseCase->update(Uuid::v4(), Uuid::v4(), 'new account name');
-  }
+        $accountUpdateUseCase = new AccountUpdateUseCase(
+            $accountByUserFinderService->reveal(),
+            $accountUpdateService->reveal()
+        );
+        $accountUpdateUseCase->update(Uuid::v4(), Uuid::v4(), 'new account name');
+    }
 
-  public function testCallsServiceThatUpdateAccountInDatabase(): void
-  {
-    $accountByUserFinderService = $this->prophesize(AccountByUserFinderServiceInterface::class);
-    $accountByUserFinderService
-      ->isAccountOwnedByUser(Argument::type('string'), Argument::type('string'))
-      ->willReturn(true)
-    ;
+    public function testCallsServiceThatUpdateAccountInDatabase(): void
+    {
+        $accountByUserFinderService = $this->prophesize(AccountByUserFinderServiceInterface::class);
+        $accountByUserFinderService
+          ->isAccountOwnedByUser(Argument::type('string'), Argument::type('string'))
+          ->willReturn(true)
+        ;
 
-    $accountUpdateService = $this->prophesize(AccountUpdateServiceInterface::class);
-    $accountUpdateService
-      ->update(Argument::type('string'), Argument::type('string'))
-      ->shouldBeCalledOnce()
-    ;
+        $accountUpdateService = $this->prophesize(AccountUpdateServiceInterface::class);
+        $accountUpdateService
+          ->update(Argument::type('string'), Argument::type('string'))
+          ->shouldBeCalledOnce()
+        ;
 
-    $accountUpdateUseCase = new AccountUpdateUseCase(
-      $accountByUserFinderService->reveal(),
-      $accountUpdateService->reveal()
-    );
-    $accountUpdateUseCase->update(Uuid::v4(), Uuid::v4(), 'new account name');
-  }
+        $accountUpdateUseCase = new AccountUpdateUseCase(
+            $accountByUserFinderService->reveal(),
+            $accountUpdateService->reveal()
+        );
+        $accountUpdateUseCase->update(Uuid::v4(), Uuid::v4(), 'new account name');
+    }
 }

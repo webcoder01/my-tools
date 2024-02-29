@@ -10,25 +10,25 @@ use Doctrine\ORM\EntityNotFoundException;
 
 class BudgetTypeUpdateService extends AbstractService implements BudgetTypeUpdateServiceInterface
 {
-  /**
-   * @throws EntityNotFoundException
-   */
-  public function updateBudgetType(string $budgetTypeId, string $categoryId, string $name): void
-  {
-    $budgetTypeToUpdate = $this->entityManager->getRepository(BudgetType::class)->find($budgetTypeId);
-    if ($budgetTypeToUpdate === null) {
-      throw new EntityNotFoundException();
+    /**
+     * @throws EntityNotFoundException
+     */
+    public function updateBudgetType(string $budgetTypeId, string $categoryId, string $name): void
+    {
+        $budgetTypeToUpdate = $this->entityManager->getRepository(BudgetType::class)->find($budgetTypeId);
+        if (null === $budgetTypeToUpdate) {
+            throw new EntityNotFoundException();
+        }
+
+        $budgetCategory = $this->entityManager->getRepository(BudgetCategory::class)->find($categoryId);
+        if (null === $budgetCategory) {
+            throw new EntityNotFoundException();
+        }
+
+        $budgetTypeToUpdate->setCategory($budgetCategory);
+        $budgetTypeToUpdate->setName($name);
+
+        $this->entityManager->flush();
+        $this->entityManager->clear();
     }
-
-    $budgetCategory = $this->entityManager->getRepository(BudgetCategory::class)->find($categoryId);
-    if ($budgetCategory === null) {
-      throw new EntityNotFoundException();
-    }
-
-    $budgetTypeToUpdate->setCategory($budgetCategory);
-    $budgetTypeToUpdate->setName($name);
-
-    $this->entityManager->flush();
-    $this->entityManager->clear();
-  }
 }

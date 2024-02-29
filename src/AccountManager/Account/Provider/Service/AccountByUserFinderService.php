@@ -8,16 +8,16 @@ use App\Shared\Provider\AbstractService;
 
 class AccountByUserFinderService extends AbstractService implements AccountByUserFinderServiceInterface
 {
-  public function isAccountOwnedByUser(string $userId, string $accountId): bool
-  {
-    $account = $this->entityManager
-      ->getRepository(Account::class)
-      ->findOneBy([
-        'id' => $accountId,
-        'user' => $userId,
-      ])
-    ;
+    public function isAccountOwnedByUser(string $userId, string $accountId): bool
+    {
+        $account = $this->entityManager
+          ->getRepository(Account::class)
+          ->findOneBy([
+            'id' => $accountId,
+            'user' => $userId,
+          ])
+        ;
 
-    return $account instanceof Account;
-  }
+        return $account instanceof Account;
+    }
 }

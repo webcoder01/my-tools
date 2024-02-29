@@ -10,30 +10,30 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class BudgetsInitializationController extends AbstractApiController
 {
-  #[Route(path: '/initialise', name: 'initiate')]
-  public function __invoke(
-    BudgetsInitializationUseCaseInterface $budgetsInitializationUseCase,
-    Request $request
-  ): JsonResponse {
-    $this->executeSecurityChecks($request);
-    $user = $this->getUser();
-    $content = $this->getContentToArray($request);
+    #[Route(path: '/initialise', name: 'initiate')]
+    public function __invoke(
+        BudgetsInitializationUseCaseInterface $budgetsInitializationUseCase,
+        Request $request
+    ): JsonResponse {
+        $this->executeSecurityChecks($request);
+        $user = $this->getUser();
+        $content = $this->getContentToArray($request);
 
-    $budgetsInitializationUseCase->initiate($user->getId(), $content['month'], $content['year']);
+        $budgetsInitializationUseCase->initiate($user->getId(), $content['month'], $content['year']);
 
-    return new JsonResponse([], 200);
-  }
+        return new JsonResponse([], 200);
+    }
 
-  public function getKeysAndValueTypesExpectedInContent(): array
-  {
-    return [
-      'month' => 'integer',
-      'year' => 'integer',
-    ];
-  }
+    public function getKeysAndValueTypesExpectedInContent(): array
+    {
+        return [
+          'month' => 'integer',
+          'year' => 'integer',
+        ];
+    }
 
-  protected function getAuthorizedMethod(): string
-  {
-    return Request::METHOD_POST;
-  }
+    protected function getAuthorizedMethod(): string
+    {
+        return Request::METHOD_POST;
+    }
 }

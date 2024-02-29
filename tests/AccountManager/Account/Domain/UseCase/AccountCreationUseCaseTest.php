@@ -11,25 +11,25 @@ use Symfony\Component\Uid\Uuid;
 
 class AccountCreationUseCaseTest extends TestCase
 {
-  use ProphecyTrait;
+    use ProphecyTrait;
 
-  public function testCallsServiceThatPersistAccountInDatabase(): void
-  {
-    $newAccountIdExpected = Uuid::v4()->toRfc4122();
-    $accountUpsertService = $this->prophesize(AccountCreationServiceInterface::class);
-    $accountUpsertService->persistOne(
-      Argument::type('string'),
-      Argument::type('string'),
-      Argument::type('string')
-    )->willReturn($newAccountIdExpected)
-      ->shouldBeCalledOnce()
-    ;
+    public function testCallsServiceThatPersistAccountInDatabase(): void
+    {
+        $newAccountIdExpected = Uuid::v4()->toRfc4122();
+        $accountUpsertService = $this->prophesize(AccountCreationServiceInterface::class);
+        $accountUpsertService->persistOne(
+            Argument::type('string'),
+            Argument::type('string'),
+            Argument::type('string')
+        )->willReturn($newAccountIdExpected)
+          ->shouldBeCalledOnce()
+        ;
 
-    $accountCreationUseCase = new AccountCreationUseCase($accountUpsertService->reveal());
+        $accountCreationUseCase = new AccountCreationUseCase($accountUpsertService->reveal());
 
-    $userId = Uuid::v4()->toRfc4122();
-    $accountId = $accountCreationUseCase->createOne($userId, 'new account name', '2000.00');
+        $userId = Uuid::v4()->toRfc4122();
+        $accountId = $accountCreationUseCase->createOne($userId, 'new account name', '2000.00');
 
-    $this->assertSame($newAccountIdExpected, $accountId);
-  }
+        $this->assertSame($newAccountIdExpected, $accountId);
+    }
 }

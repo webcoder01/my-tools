@@ -13,39 +13,39 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class BudgetTypeUpdateController extends AbstractApiController
 {
-  #[Route(path: '/edition', name: 'type_update')]
-  public function __invoke(
-    BudgetTypeUpdateUseCaseInterface $budgetTypeUpdateUseCase,
-    LoggerInterface         $logger,
-    Request                 $request
-  ): JsonResponse {
-    $this->executeSecurityChecks($request);
-    $user = $this->getUser();
-    $content = $this->getContentToArray($request);
+    #[Route(path: '/edition', name: 'type_update')]
+    public function __invoke(
+        BudgetTypeUpdateUseCaseInterface $budgetTypeUpdateUseCase,
+        LoggerInterface $logger,
+        Request $request
+    ): JsonResponse {
+        $this->executeSecurityChecks($request);
+        $user = $this->getUser();
+        $content = $this->getContentToArray($request);
 
-    try {
-      $budgetTypeUpdateUseCase
-        ->updateBudgetType($user->getId(), $content['type_id'], $content['category_id'], $content['name'])
-      ;
-    } catch (ForbiddenResourceAccessException $exception) {
-      $logger->error($exception);
-      throw new HttpException(403);
+        try {
+            $budgetTypeUpdateUseCase
+              ->updateBudgetType($user->getId(), $content['type_id'], $content['category_id'], $content['name'])
+            ;
+        } catch (ForbiddenResourceAccessException $exception) {
+            $logger->error($exception);
+            throw new HttpException(403);
+        }
+
+        return new JsonResponse(['id' => $content['type_id']], 200);
     }
 
-    return new JsonResponse(['id' => $content['type_id']], 200);
-  }
+    public function getKeysAndValueTypesExpectedInContent(): array
+    {
+        return [
+          'category_id' => 'uuid',
+          'type_id' => 'uuid',
+          'name' => 'string',
+        ];
+    }
 
-  public function getKeysAndValueTypesExpectedInContent(): array
-  {
-    return [
-      'category_id' => 'uuid',
-      'type_id' => 'uuid',
-      'name' => 'string',
-    ];
-  }
-
-  protected function getAuthorizedMethod(): string
-  {
-    return Request::METHOD_PUT;
-  }
+    protected function getAuthorizedMethod(): string
+    {
+        return Request::METHOD_PUT;
+    }
 }

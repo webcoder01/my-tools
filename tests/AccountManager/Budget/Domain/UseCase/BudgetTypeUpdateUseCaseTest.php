@@ -19,96 +19,96 @@ BypassFinals::enable();
 
 class BudgetTypeUpdateUseCaseTest extends KernelTestCase
 {
-  private BudgetTypeUpdateUseCase $budgetTypeUpdateUseCase;
-  private EntityManagerInterface $entityManager;
-  private string $userId;
+    private BudgetTypeUpdateUseCase $budgetTypeUpdateUseCase;
+    private EntityManagerInterface $entityManager;
+    private string $userId;
 
-  protected function setUp(): void
-  {
-    self::bootKernel();
-    $container = static::getContainer();
-    $this->entityManager = $container->get('doctrine')->getManager();
-    $budgetCategoryByBudgetTypeIdChecker = new BudgetCategoryAccessByBudgetTypeChecker($this->entityManager);
-    $budgetCategoryByUserIdChecker = new BudgetCategoryAccessByUserChecker($this->entityManager);
+    protected function setUp(): void
+    {
+        self::bootKernel();
+        $container = static::getContainer();
+        $this->entityManager = $container->get('doctrine')->getManager();
+        $budgetCategoryByBudgetTypeIdChecker = new BudgetCategoryAccessByBudgetTypeChecker($this->entityManager);
+        $budgetCategoryByUserIdChecker = new BudgetCategoryAccessByUserChecker($this->entityManager);
 
-    $budgetTypeUpdateService = $container->get(BudgetTypeUpdateService::class);
-    $this->budgetTypeUpdateUseCase = new BudgetTypeUpdateUseCase(
-      $budgetCategoryByBudgetTypeIdChecker,
-      $budgetCategoryByUserIdChecker,
-      $budgetTypeUpdateService
-    );
+        $budgetTypeUpdateService = $container->get(BudgetTypeUpdateService::class);
+        $this->budgetTypeUpdateUseCase = new BudgetTypeUpdateUseCase(
+            $budgetCategoryByBudgetTypeIdChecker,
+            $budgetCategoryByUserIdChecker,
+            $budgetTypeUpdateService
+        );
 
-    $this->userId = $this->entityManager
-      ->getRepository(User::class)
-      ->findOneBy(['username' => 'user'])->getId()
-    ;
-  }
+        $this->userId = $this->entityManager
+          ->getRepository(User::class)
+          ->findOneBy(['username' => 'user'])->getId()
+        ;
+    }
 
-  protected function tearDown(): void
-  {
-    unset($this->budgetTypeUpdateUseCase);
-    unset($this->entityManager);
-    unset($this->userId);
-  }
+    protected function tearDown(): void
+    {
+        unset($this->budgetTypeUpdateUseCase);
+        unset($this->entityManager);
+        unset($this->userId);
+    }
 
-  public function testThrowsForbiddenResourceAccessExceptionIfUserDoesNotOwnBudgetCategory(): void
-  {
-    $this->expectException(ForbiddenResourceAccessException::class);
+    public function testThrowsForbiddenResourceAccessExceptionIfUserDoesNotOwnBudgetCategory(): void
+    {
+        $this->expectException(ForbiddenResourceAccessException::class);
 
-    $this->budgetTypeUpdateUseCase->updateBudgetType(
-      $this->userId,
-      UUid::v4()->toRfc4122(),
-      UUid::v4()->toRfc4122(),
-      'type name updated'
-    );
-  }
+        $this->budgetTypeUpdateUseCase->updateBudgetType(
+            $this->userId,
+            Uuid::v4()->toRfc4122(),
+            Uuid::v4()->toRfc4122(),
+            'type name updated'
+        );
+    }
 
-  public function testThrowsForbiddenResourceAccessExceptionIfNewCategoryDoesNotExist(): void
-  {
-    $this->expectException(ForbiddenResourceAccessException::class);
+    public function testThrowsForbiddenResourceAccessExceptionIfNewCategoryDoesNotExist(): void
+    {
+        $this->expectException(ForbiddenResourceAccessException::class);
 
-    $user = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'user']);
-    $budgetCategoryOfUser = $this->entityManager
-      ->getRepository(BudgetCategory::class)
-      ->findOneBy(['user' => $user->getId()])
-    ;
-    $budgetTypeToEdit = $this->entityManager
-      ->getRepository(BudgetType::class)
-      ->findOneBy(['category' => $budgetCategoryOfUser->getId()])
-    ;
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'user']);
+        $budgetCategoryOfUser = $this->entityManager
+          ->getRepository(BudgetCategory::class)
+          ->findOneBy(['user' => $user->getId()])
+        ;
+        $budgetTypeToEdit = $this->entityManager
+          ->getRepository(BudgetType::class)
+          ->findOneBy(['category' => $budgetCategoryOfUser->getId()])
+        ;
 
-    $this->budgetTypeUpdateUseCase->updateBudgetType(
-      $this->userId,
-      $budgetTypeToEdit->getId(),
-      UUid::v4()->toRfc4122(),
-      'type name updated'
-    );
-  }
+        $this->budgetTypeUpdateUseCase->updateBudgetType(
+            $this->userId,
+            $budgetTypeToEdit->getId(),
+            Uuid::v4()->toRfc4122(),
+            'type name updated'
+        );
+    }
 
-  public function testBudgetTypeIsUpdated(): void
-  {
-    $user = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'user']);
-    $budgetCategoryOfUser = $this->entityManager
-      ->getRepository(BudgetCategory::class)
-      ->findOneBy(['user' => $user->getId()])
-    ;
-    $budgetTypeToEdit = $this->entityManager
-      ->getRepository(BudgetType::class)
-      ->findOneBy(['category' => $budgetCategoryOfUser->getId()])
-    ;
+    public function testBudgetTypeIsUpdated(): void
+    {
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'user']);
+        $budgetCategoryOfUser = $this->entityManager
+          ->getRepository(BudgetCategory::class)
+          ->findOneBy(['user' => $user->getId()])
+        ;
+        $budgetTypeToEdit = $this->entityManager
+          ->getRepository(BudgetType::class)
+          ->findOneBy(['category' => $budgetCategoryOfUser->getId()])
+        ;
 
-    $this->budgetTypeUpdateUseCase->updateBudgetType(
-      $this->userId,
-      $budgetTypeToEdit->getId(),
-      $budgetCategoryOfUser->getId(),
-      'type name updated'
-    );
+        $this->budgetTypeUpdateUseCase->updateBudgetType(
+            $this->userId,
+            $budgetTypeToEdit->getId(),
+            $budgetCategoryOfUser->getId(),
+            'type name updated'
+        );
 
-    $budgetTypeUpdated = $this->entityManager
-      ->getRepository(BudgetType::class)
-      ->findOneBy(['name' => 'type name updated'])
-    ;
+        $budgetTypeUpdated = $this->entityManager
+          ->getRepository(BudgetType::class)
+          ->findOneBy(['name' => 'type name updated'])
+        ;
 
-    $this->assertSame($budgetTypeToEdit->getId(), $budgetTypeUpdated->getId());
-  }
+        $this->assertSame($budgetTypeToEdit->getId(), $budgetTypeUpdated->getId());
+    }
 }

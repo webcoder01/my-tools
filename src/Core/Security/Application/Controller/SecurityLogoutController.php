@@ -9,5 +9,6 @@ class SecurityLogoutController extends AbstractController
 {
     #[Route(path: '/deconnexion', name: 'app_core_security_logout')]
     public function __invoke(): void
-    {}
+    {
+    }
 }

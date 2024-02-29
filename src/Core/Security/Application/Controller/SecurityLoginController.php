@@ -11,21 +11,21 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityLoginController extends AbstractController
 {
-  #[Route(path: '/connexion', name: 'app_core_security_login')]
-  public function __invoke(AuthenticationUtils $authenticationUtils, LoginType $loginType): Response
-  {
-    if ($this->getUser()) {
-      return $this->redirectToRoute('app_core_home_index');
+    #[Route(path: '/connexion', name: 'app_core_security_login')]
+    public function __invoke(AuthenticationUtils $authenticationUtils, LoginType $loginType): Response
+    {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_core_home_index');
+        }
+
+        $user = new User();
+        $user->setUsername($authenticationUtils->getLastUsername());
+        $form = $loginType->createForm($user);
+        $lastError = $authenticationUtils->getLastAuthenticationError();
+
+        return $this->render('core/security/login.html.twig', [
+          'form' => $form->createView(),
+          'last_error' => $lastError,
+        ]);
     }
-
-    $user = new User();
-    $user->setUsername($authenticationUtils->getLastUsername());
-    $form = $loginType->createForm($user);
-    $lastError = $authenticationUtils->getLastAuthenticationError();
-
-    return $this->render('core/security/login.html.twig', [
-      'form' => $form->createView(),
-      'last_error' => $lastError,
-    ]);
-  }
 }

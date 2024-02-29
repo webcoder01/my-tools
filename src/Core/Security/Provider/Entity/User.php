@@ -62,5 +62,6 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     }
 
     public function eraseCredentials(): void
-    {}
+    {
+    }
 }

@@ -9,23 +9,23 @@ use App\Shared\Domain\Exception\ForbiddenResourceAccessException;
 
 class AccountUpdateUseCase implements AccountUpdateUseCaseInterface
 {
-  private AccountByUserFinderServiceInterface $accountByUserFinderService;
-  private AccountUpdateServiceInterface $accountUpdateService;
+    private AccountByUserFinderServiceInterface $accountByUserFinderService;
+    private AccountUpdateServiceInterface $accountUpdateService;
 
-  public function __construct(
-    AccountByUserFinderServiceInterface $accountByUserFinderService,
-    AccountUpdateServiceInterface $accountUpdateService
-  ) {
-    $this->accountByUserFinderService = $accountByUserFinderService;
-    $this->accountUpdateService = $accountUpdateService;
-  }
-
-  public function update(string $userId, string $accountId, string $accountName): void
-  {
-    if (!$this->accountByUserFinderService->isAccountOwnedByUser($userId, $accountId)) {
-      throw new ForbiddenResourceAccessException('account');
+    public function __construct(
+        AccountByUserFinderServiceInterface $accountByUserFinderService,
+        AccountUpdateServiceInterface $accountUpdateService
+    ) {
+        $this->accountByUserFinderService = $accountByUserFinderService;
+        $this->accountUpdateService = $accountUpdateService;
     }
 
-    $this->accountUpdateService->update($accountId, $accountName);
-  }
+    public function update(string $userId, string $accountId, string $accountName): void
+    {
+        if (!$this->accountByUserFinderService->isAccountOwnedByUser($userId, $accountId)) {
+            throw new ForbiddenResourceAccessException('account');
+        }
+
+        $this->accountUpdateService->update($accountId, $accountName);
+    }
 }

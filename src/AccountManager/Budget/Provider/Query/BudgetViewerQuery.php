@@ -7,19 +7,19 @@ use App\Shared\Infrastructure\AbstractQuery;
 
 final class BudgetViewerQuery extends AbstractQuery implements BudgetViewerQueryInterface
 {
-  /**
-   * @return array{
-   *   array{
-   *     id: string,
-   *     name: string,
-   *     assigned_amount: string,
-   *     available_amount: string,
-   *   }
-   * }
-   */
-  public function getCategories(string $userId, int $month, int $year): array
-  {
-    $statement = $this->entityManager->getConnection()->prepare("
+    /**
+     * @return array{
+     *   array{
+     *     id: string,
+     *     name: string,
+     *     assigned_amount: string,
+     *     available_amount: string,
+     *   }
+     * }
+     */
+    public function getCategories(string $userId, int $month, int $year): array
+    {
+        $statement = $this->entityManager->getConnection()->prepare('
       SELECT
         category.id AS id,
         category.name AS name,
@@ -32,29 +32,29 @@ final class BudgetViewerQuery extends AbstractQuery implements BudgetViewerQuery
       WHERE user.id = :userId
       GROUP BY category.id, category.name
       ORDER BY category.name ASC
-    ");
+    ');
 
-    $statement->bindValue('userId', $userId);
-    $statement->bindValue('month', $month);
-    $statement->bindValue('year', $year);
+        $statement->bindValue('userId', $userId);
+        $statement->bindValue('month', $month);
+        $statement->bindValue('year', $year);
 
-    return $statement->executeQuery()->fetchAllAssociative();
-  }
+        return $statement->executeQuery()->fetchAllAssociative();
+    }
 
-  /**
-   * @return array{
-   *   array{
-   *     category_id: string,
-   *     id: string,
-   *     name: string,
-   *     assigned_amount: string,
-   *     available_amount: string,
-   *   }
-   * }
-   */
-  public function getBudgets(string $userId, int $month, int $year): array
-  {
-    $statement = $this->entityManager->getConnection()->prepare("
+    /**
+     * @return array{
+     *   array{
+     *     category_id: string,
+     *     id: string,
+     *     name: string,
+     *     assigned_amount: string,
+     *     available_amount: string,
+     *   }
+     * }
+     */
+    public function getBudgets(string $userId, int $month, int $year): array
+    {
+        $statement = $this->entityManager->getConnection()->prepare('
       SELECT
         category.id AS category_id,
         type.id AS id,
@@ -67,12 +67,12 @@ final class BudgetViewerQuery extends AbstractQuery implements BudgetViewerQuery
       LEFT JOIN budget ON budget.type_id = type.id AND budget.month = :month AND budget.year = :year
       WHERE user.id = :userId
       ORDER BY category.id ASC, type.name ASC
-    ");
+    ');
 
-    $statement->bindValue('userId', $userId);
-    $statement->bindValue('month', $month);
-    $statement->bindValue('year', $year);
+        $statement->bindValue('userId', $userId);
+        $statement->bindValue('month', $month);
+        $statement->bindValue('year', $year);
 
-    return $statement->executeQuery()->fetchAllAssociative();
-  }
+        return $statement->executeQuery()->fetchAllAssociative();
+    }
 }

@@ -2,7 +2,6 @@
 
 namespace App\AccountManager\Budget\Domain\Exception;
 
-use Exception;
-
-class BudgetsAlreadyInitializedException extends Exception
-{}
+class BudgetsAlreadyInitializedException extends \Exception
+{
+}

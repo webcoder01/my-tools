@@ -9,73 +9,73 @@ use Symfony\Component\Uid\Uuid;
 
 class BudgetTypeCreationControllerTest extends WebTestCase
 {
-  use AuthenticationTestTrait;
+    use AuthenticationTestTrait;
 
-  public function testReturnsUnauthorizedAccessIfUserIsNotLoggedIn(): void
-  {
-    $client = static::createClient();
-    $client->request('POST', '/gestion-de-compte/budget/type/creation');
+    public function testReturnsUnauthorizedAccessIfUserIsNotLoggedIn(): void
+    {
+        $client = static::createClient();
+        $client->request('POST', '/gestion-de-compte/budget/type/creation');
 
-    $this->assertResponseStatusCodeSame(401);
-  }
+        $this->assertResponseStatusCodeSame(401);
+    }
 
-  /**
-   * @dataProvider methodsProvider
-   */
-  public function testReturnsMethodNotAllowedStatusCodeIfMethodIsNotPost(string $method, int $statusCode): void
-  {
-    $client = static::createClient();
-    $this->loginUser($client, static::getContainer());
-    $client->request($method, '/gestion-de-compte/budget/type/creation', [], [], [], '[]');
+    /**
+     * @dataProvider methodsProvider
+     */
+    public function testReturnsMethodNotAllowedStatusCodeIfMethodIsNotPost(string $method, int $statusCode): void
+    {
+        $client = static::createClient();
+        $this->loginUser($client, static::getContainer());
+        $client->request($method, '/gestion-de-compte/budget/type/creation', [], [], [], '[]');
 
-    $this->assertResponseStatusCodeSame($statusCode);
-  }
+        $this->assertResponseStatusCodeSame($statusCode);
+    }
 
-  public function methodsProvider(): array
-  {
-    return [
-      ['GET', 405],
-      ['PUT', 405],
-      ['DELETE', 405],
-    ];
-  }
+    public function methodsProvider(): array
+    {
+        return [
+          ['GET', 405],
+          ['PUT', 405],
+          ['DELETE', 405],
+        ];
+    }
 
-  public function testReturnsBadRequestStatusCodeIfContentIsIncorrect(): void
-  {
-    $client = static::createClient();
-    $this->loginUser($client, static::getContainer());
-    $client->request('POST', '/gestion-de-compte/budget/type/creation', [], [], [], '[]');
+    public function testReturnsBadRequestStatusCodeIfContentIsIncorrect(): void
+    {
+        $client = static::createClient();
+        $this->loginUser($client, static::getContainer());
+        $client->request('POST', '/gestion-de-compte/budget/type/creation', [], [], [], '[]');
 
-    $this->assertResponseStatusCodeSame(400);
-  }
+        $this->assertResponseStatusCodeSame(400);
+    }
 
-  public function testReturnsForbiddenStatusCodeIfCategoryDoesNotBelongToUser(): void
-  {
-    $client = static::createClient();
-    $this->loginUser($client, static::getContainer());
+    public function testReturnsForbiddenStatusCodeIfCategoryDoesNotBelongToUser(): void
+    {
+        $client = static::createClient();
+        $this->loginUser($client, static::getContainer());
 
-    $content = json_encode(['category_id' => Uuid::v4()->toRfc4122(), 'name' => 'test']);
-    $client->request('POST', '/gestion-de-compte/budget/type/creation', [], [], [], $content);
+        $content = json_encode(['category_id' => Uuid::v4()->toRfc4122(), 'name' => 'test']);
+        $client->request('POST', '/gestion-de-compte/budget/type/creation', [], [], [], $content);
 
-    $this->assertResponseStatusCodeSame(403);
-  }
+        $this->assertResponseStatusCodeSame(403);
+    }
 
-  public function testReturns201ResponseStatusCodeWhenCreationIsASuccess(): void
-  {
-    $client = static::createClient();
-    $container = static::getContainer();
-    $this->loginUser($client, $container);
+    public function testReturns201ResponseStatusCodeWhenCreationIsASuccess(): void
+    {
+        $client = static::createClient();
+        $container = static::getContainer();
+        $this->loginUser($client, $container);
 
-    $entityManager = $container->get('doctrine')->getManager();
-    $budgetCategoryId = $entityManager
-      ->getRepository(BudgetCategory::class)
-      ->findOneBy(['user' => $this->user])
-      ->getId()
-    ;
+        $entityManager = $container->get('doctrine')->getManager();
+        $budgetCategoryId = $entityManager
+          ->getRepository(BudgetCategory::class)
+          ->findOneBy(['user' => $this->user])
+          ->getId()
+        ;
 
-    $content = json_encode(['category_id' => $budgetCategoryId, 'name' => 'test']);
-    $client->request('POST', '/gestion-de-compte/budget/type/creation', [], [], [], $content);
+        $content = json_encode(['category_id' => $budgetCategoryId, 'name' => 'test']);
+        $client->request('POST', '/gestion-de-compte/budget/type/creation', [], [], [], $content);
 
-    $this->assertResponseStatusCodeSame(201);
-  }
+        $this->assertResponseStatusCodeSame(201);
+    }
 }

@@ -7,10 +7,10 @@ use Symfony\Component\Form\FormFactoryInterface;
 
 abstract class AbstractAppForm extends AbstractType
 {
-  protected FormFactoryInterface $formFactory;
+    protected FormFactoryInterface $formFactory;
 
-  public function __construct(FormFactoryInterface $formFactory)
-  {
-    $this->formFactory = $formFactory;
-  }
+    public function __construct(FormFactoryInterface $formFactory)
+    {
+        $this->formFactory = $formFactory;
+    }
 }
